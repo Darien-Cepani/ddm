@@ -7,14 +7,14 @@ export default {
   theme: {
     extend: {
       colors: {
-        // Bela Flower Shop — soft romantic blush palette
+        // Driven by CSS variables so each demo (?shop=) gets its own accent.
         brand: {
-          dark: '#3A2330',      // primary ink / body text
-          night: '#1E1016',     // deepest backgrounds (loader, hero, footer)
-          gold: '#D98BA6',      // signature accent (dusty rose)
-          deep: '#A14E6E',      // darker accent for text & hairlines on white
-          champagne: '#FAF1F3', // soft blush-cream section background
-          red: '#B23A6A',       // highlight / notification accent
+          dark: 'rgb(var(--c-dark) / <alpha-value>)',
+          night: 'rgb(var(--c-night) / <alpha-value>)',
+          gold: 'rgb(var(--c-gold) / <alpha-value>)',
+          deep: 'rgb(var(--c-deep) / <alpha-value>)',
+          champagne: 'rgb(var(--c-champagne) / <alpha-value>)',
+          red: 'rgb(var(--c-red) / <alpha-value>)',
         }
       },
       fontFamily: {

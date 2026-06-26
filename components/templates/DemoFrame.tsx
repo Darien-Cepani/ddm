@@ -6,11 +6,13 @@
  * smooth-scroll without clashing with the DDM marketing shell. The business name
  * is selected via the ?shop=<slug> query.
  */
+const BASE = process.env.NEXT_PUBLIC_BASE_PATH ?? "";
+
 export function DemoFrame({ slug, name }: { slug: string; name: string }) {
   return (
     <iframe
       className="demo-frame"
-      src={`/bela-demo/index.html?shop=${slug}`}
+      src={`${BASE}/bela-demo/index.html?shop=${slug}`}
       title={name}
       loading="eager"
       style={{ position: "fixed", inset: 0, width: "100vw", height: "100dvh", border: 0, display: "block", zIndex: 30 }}

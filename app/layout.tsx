@@ -20,11 +20,17 @@ const gelasio = Gelasio({
   variable: "--font-gelasio",
 });
 
+const BASE = process.env.NEXT_PUBLIC_BASE_PATH ?? "";
+
 export const metadata: Metadata = {
   metadataBase: new URL("https://ddm.al"),
   title: {
     default: "DDM — Do Digital Media · Stop planning, start doing",
     template: "%s · DDM",
+  },
+  icons: {
+    icon: `${BASE}/icon.png`,
+    apple: `${BASE}/apple-icon.png`,
   },
   description:
     "DDM builds brands that dominate the market — premium websites, CRM, ecommerce, marketing, content and design. Clean, fast, animated, no headache.",

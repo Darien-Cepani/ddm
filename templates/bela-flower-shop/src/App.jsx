@@ -387,89 +387,502 @@ const RAW_PRODUCTS = [
 // `splash-mark` / `brand-petal` hooks the preloader animates.
 
 // --- DDM demo parameterisation ------------------------------------------------
-// One build serves every client: ?shop=<slug> picks the business name and the
-// template is rebranded from "Bela" to that name at runtime.
+// One build serves every client: ?shop=<slug> selects the business (two-tone
+// name + a relevant accent colour) and rebrands the template from "Bela".
 const SHOPS = {
-  "lulebore-flowers": "Luleborë Flowers",
-  "dyqan-lulesh-sara-flowers-and-gifts-shop": "Dyqan lulesh Sara Flowers & Gifts Shop",
-  "don-paulo-flowers": "Don Paulo Flowers",
-  "bota-e-luleve": "BOTA E LULEVE",
-  "dyqan-lulesh-shytis-flower": "Dyqan Lulesh Shyti's Flower",
-  "golden-flowers": "Golden Flowers",
-  "handmade-ola": "Handmade Ola",
-  "house-of-flowers-lori": "House of Flowers Lori",
-  "flower-boutique": "Flower boutique",
-  "tirana-flowers": "Tirana Flowers",
-  "bloom-flower-exclusive": "Bloom Flower Exclusive",
-  "hanaflower-al": "hanaflower.al",
-  "speaking-roses-albania": "Speaking Roses Albania",
-  "joal-flowers": "JOAL Flowers",
-  "wow-flowers": "WoW Flowers",
-  "floramour": "Floramour",
-  "blumenhaus-flower-shop": "Blumenhaus Flower Shop",
-  "friends-of-flowers": "FRIENDS OF FLOWERS",
-  "flowers-shop-angel": "Flowers shop Angel",
-  "belfiore": "Belfiore",
-  "fiore-tirana": "Fiore Tirana",
-  "castle-of-flower": "Castle Of Flower",
-  "anabela-flowers": "Anabela Flowers",
-  "igiflower": "IgiFlower",
-  "new-tirana-flowers": "New Tirana Flowers",
-  "eart-flowers-and-gifts": "Eart Flowers & Gifts",
-  "flowers-elixir-store": "Flowers Elixir Store",
-  "lujon-flowers": "Lujon Flowers",
-  "dive-flowers-and-events": "D’IVE FLOWERS & EVENTS",
-  "smell-time-myslym-shyri": "Smell Time Myslym Shyri",
-  "artflower": "Artflower",
-  "flowers-and-plants-ds": "Flowers and Plants DS",
-  "le-rose-flowers-shop": "Le Rose flowers shop",
-  "fleur-de-mel": "Fleur de Mel",
-  "lotus-flowers-tirane": "Lotus Flowers Tiranë",
-  "silvi-flowers-tirane": "Silvi Flowers Tirane",
-  "family-flowers": "Family Flowers",
-  "florum": "FLORUM",
-  "mado-flowers-tirane": "Mado Flowers Tirane",
-  "bloem-flower-boutique-tirana": "Bloem Flower Boutique Tirana",
-  "flowers-by-des": "Flowers by Des",
-  "charm-flowers-shop": "CHARM FLOWERS SHOP",
-  "lunariaa-eu-flower-cafe": "Lunariaa.eu Flower Café",
-  "oazi-festiv": "Oazi Festiv",
-  "tulip-touch-flower-shop-in-tirana": "Tulip Touch Flower Shop in Tirana",
-  "tirana-colour-wine": "Tirana Colour Wine",
-  "floral-fantasy": "Floral Fantasy",
-  "dandelion-flower-tirana": "Dandelion Flower Tirana",
-  "frida-xhoi-and-xhei": "Frida Xhoi & Xhei",
-  "artifiko-gift-shop": "Artifiko Gift Shop",
-  "the-tea-room": "The Tea Room",
-  "geraldina-sposa": "Geraldina Sposa",
-  "dhurata-com": "Dhurata.com",
-  "maison-damour-flowers": "Maison D'amour Flowers",
-  "moon-decor-and-flowers": "Moon Decor & Flowers",
-  "bloom-flowers": "Bloom Flowers",
-  "roses-flowers": "Roses flowers",
-  "daisy-flower": "Daisy flower",
-  "flowers-and-fragrance": "Flowers and Fragrance",
-  "sara-flowers-shop": "Sara Flowers Shop",
-  "flawless-flower-shop": "Flawless Flower Shop",
-  "flower-shop-and-gifts": "Flower Shop & Gifts",
-  "paper-flower-tirana": "Paper Flower Tirana",
-  "daci-flower": "Daçi Flower",
-  "naco-flower": "Naço flower"
+  "lulebore-flowers": {
+    "full": "Luleborë Flowers",
+    "primary": "Luleborë",
+    "secondary": "Flowers",
+    "ai": 1
+  },
+  "dyqan-lulesh-sara-flowers-and-gifts-shop": {
+    "full": "Dyqan lulesh Sara Flowers & Gifts Shop",
+    "primary": "Sara",
+    "secondary": "Flowers & Gifts Shop",
+    "ai": 1
+  },
+  "don-paulo-flowers": {
+    "full": "Don Paulo Flowers",
+    "primary": "Don Paulo",
+    "secondary": "Flowers",
+    "ai": 8
+  },
+  "bota-e-luleve": {
+    "full": "BOTA E LULEVE",
+    "primary": "BOTA E LULEVE",
+    "secondary": "",
+    "ai": 8
+  },
+  "dyqan-lulesh-shytis-flower": {
+    "full": "Dyqan Lulesh Shyti's Flower",
+    "primary": "Shyti's",
+    "secondary": "Flower",
+    "ai": 8
+  },
+  "golden-flowers": {
+    "full": "Golden Flowers",
+    "primary": "Golden",
+    "secondary": "Flowers",
+    "ai": 3
+  },
+  "handmade-ola": {
+    "full": "Handmade Ola",
+    "primary": "Handmade Ola",
+    "secondary": "",
+    "ai": 3
+  },
+  "house-of-flowers-lori": {
+    "full": "House of Flowers Lori",
+    "primary": "House of Flowers Lori",
+    "secondary": "",
+    "ai": 8
+  },
+  "flower-boutique": {
+    "full": "Flower boutique",
+    "primary": "Flower",
+    "secondary": "boutique",
+    "ai": 2
+  },
+  "tirana-flowers": {
+    "full": "Tirana Flowers",
+    "primary": "Tirana",
+    "secondary": "Flowers",
+    "ai": 6
+  },
+  "bloom-flower-exclusive": {
+    "full": "Bloom Flower Exclusive",
+    "primary": "Bloom Flower Exclusive",
+    "secondary": "",
+    "ai": 8
+  },
+  "hanaflower-al": {
+    "full": "hanaflower.al",
+    "primary": "hanaflower.al",
+    "secondary": "",
+    "ai": 5
+  },
+  "speaking-roses-albania": {
+    "full": "Speaking Roses Albania",
+    "primary": "Speaking Roses",
+    "secondary": "Albania",
+    "ai": 0
+  },
+  "joal-flowers": {
+    "full": "JOAL Flowers",
+    "primary": "JOAL",
+    "secondary": "Flowers",
+    "ai": 3
+  },
+  "wow-flowers": {
+    "full": "WoW Flowers",
+    "primary": "WoW",
+    "secondary": "Flowers",
+    "ai": 2
+  },
+  "floramour": {
+    "full": "Floramour",
+    "primary": "Floramour",
+    "secondary": "",
+    "ai": 11
+  },
+  "blumenhaus-flower-shop": {
+    "full": "Blumenhaus Flower Shop",
+    "primary": "Blumenhaus",
+    "secondary": "Flower Shop",
+    "ai": 8
+  },
+  "friends-of-flowers": {
+    "full": "FRIENDS OF FLOWERS",
+    "primary": "FRIENDS OF",
+    "secondary": "FLOWERS",
+    "ai": 6
+  },
+  "flowers-shop-angel": {
+    "full": "Flowers shop Angel",
+    "primary": "Angel",
+    "secondary": "Flowers shop",
+    "ai": 3
+  },
+  "belfiore": {
+    "full": "Belfiore",
+    "primary": "Belfiore",
+    "secondary": "",
+    "ai": 2
+  },
+  "fiore-tirana": {
+    "full": "Fiore Tirana",
+    "primary": "Fiore",
+    "secondary": "Tirana",
+    "ai": 9
+  },
+  "castle-of-flower": {
+    "full": "Castle Of Flower",
+    "primary": "Castle Of",
+    "secondary": "Flower",
+    "ai": 0
+  },
+  "anabela-flowers": {
+    "full": "Anabela Flowers",
+    "primary": "Anabela",
+    "secondary": "Flowers",
+    "ai": 7
+  },
+  "igiflower": {
+    "full": "IgiFlower",
+    "primary": "IgiFlower",
+    "secondary": "",
+    "ai": 6
+  },
+  "new-tirana-flowers": {
+    "full": "New Tirana Flowers",
+    "primary": "New",
+    "secondary": "Tirana Flowers",
+    "ai": 3
+  },
+  "eart-flowers-and-gifts": {
+    "full": "Eart Flowers & Gifts",
+    "primary": "Eart",
+    "secondary": "Flowers & Gifts",
+    "ai": 7
+  },
+  "flowers-elixir-store": {
+    "full": "Flowers Elixir Store",
+    "primary": "Elixir",
+    "secondary": "Store",
+    "ai": 8
+  },
+  "lujon-flowers": {
+    "full": "Lujon Flowers",
+    "primary": "Lujon",
+    "secondary": "Flowers",
+    "ai": 7
+  },
+  "d-ive-flowers-and-events": {
+    "full": "D’IVE FLOWERS & EVENTS",
+    "primary": "D’IVE FLOWERS & EVENTS",
+    "secondary": "",
+    "ai": 2
+  },
+  "smell-time-myslym-shyri": {
+    "full": "Smell Time Myslym Shyri",
+    "primary": "Smell Time Myslym Shyri",
+    "secondary": "",
+    "ai": 5
+  },
+  "artflower": {
+    "full": "Artflower",
+    "primary": "Artflower",
+    "secondary": "",
+    "ai": 6
+  },
+  "flowers-and-plants-ds": {
+    "full": "Flowers and Plants DS",
+    "primary": "Plants DS",
+    "secondary": "Flowers and",
+    "ai": 10
+  },
+  "le-rose-flowers-shop": {
+    "full": "Le Rose flowers shop",
+    "primary": "Le Rose",
+    "secondary": "flowers shop",
+    "ai": 0
+  },
+  "fleur-de-mel": {
+    "full": "Fleur de Mel",
+    "primary": "Fleur de Mel",
+    "secondary": "",
+    "ai": 9
+  },
+  "lotus-flowers-tirane": {
+    "full": "Lotus Flowers Tiranë",
+    "primary": "Lotus",
+    "secondary": "Flowers Tiranë",
+    "ai": 8
+  },
+  "silvi-flowers-tirane": {
+    "full": "Silvi Flowers Tirane",
+    "primary": "Silvi",
+    "secondary": "Flowers Tirane",
+    "ai": 4
+  },
+  "family-flowers": {
+    "full": "Family Flowers",
+    "primary": "Family",
+    "secondary": "Flowers",
+    "ai": 11
+  },
+  "florum": {
+    "full": "FLORUM",
+    "primary": "FLORUM",
+    "secondary": "",
+    "ai": 1
+  },
+  "mado-flowers-tirane": {
+    "full": "Mado Flowers Tirane",
+    "primary": "Mado",
+    "secondary": "Flowers Tirane",
+    "ai": 10
+  },
+  "bloem-flower-boutique-tirana": {
+    "full": "Bloem Flower Boutique Tirana",
+    "primary": "Bloem",
+    "secondary": "Flower Boutique Tirana",
+    "ai": 8
+  },
+  "flowers-by-des": {
+    "full": "Flowers by Des",
+    "primary": "by Des",
+    "secondary": "Flowers",
+    "ai": 1
+  },
+  "charm-flowers-shop": {
+    "full": "CHARM FLOWERS SHOP",
+    "primary": "CHARM",
+    "secondary": "FLOWERS SHOP",
+    "ai": 5
+  },
+  "lunariaa-eu-flower-cafe": {
+    "full": "Lunariaa.eu Flower Café",
+    "primary": "Lunariaa.eu Flower Café",
+    "secondary": "",
+    "ai": 4
+  },
+  "oazi-festiv": {
+    "full": "Oazi Festiv",
+    "primary": "Oazi Festiv",
+    "secondary": "",
+    "ai": 9
+  },
+  "tulip-touch-flower-shop-in-tirana": {
+    "full": "Tulip Touch Flower Shop in Tirana",
+    "primary": "Tulip Touch Flower Shop in",
+    "secondary": "Tirana",
+    "ai": 1
+  },
+  "tirana-colour-wine": {
+    "full": "Tirana Colour Wine",
+    "primary": "Colour Wine",
+    "secondary": "Tirana",
+    "ai": 6
+  },
+  "floral-fantasy": {
+    "full": "Floral Fantasy",
+    "primary": "Floral Fantasy",
+    "secondary": "",
+    "ai": 5
+  },
+  "dandelion-flower-tirana": {
+    "full": "Dandelion Flower Tirana",
+    "primary": "Dandelion",
+    "secondary": "Flower Tirana",
+    "ai": 10
+  },
+  "frida-xhoi-and-xhei": {
+    "full": "Frida Xhoi & Xhei",
+    "primary": "Frida Xhoi & Xhei",
+    "secondary": "",
+    "ai": 2
+  },
+  "artifiko-gift-shop": {
+    "full": "Artifiko Gift Shop",
+    "primary": "Artifiko",
+    "secondary": "Gift Shop",
+    "ai": 7
+  },
+  "the-tea-room": {
+    "full": "The Tea Room",
+    "primary": "The Tea Room",
+    "secondary": "",
+    "ai": 4
+  },
+  "geraldina-sposa": {
+    "full": "Geraldina Sposa",
+    "primary": "Geraldina Sposa",
+    "secondary": "",
+    "ai": 10
+  },
+  "dhurata-com": {
+    "full": "Dhurata.com",
+    "primary": "Dhurata.com",
+    "secondary": "",
+    "ai": 5
+  },
+  "maison-damour-flowers": {
+    "full": "Maison D'amour Flowers",
+    "primary": "Maison D'amour",
+    "secondary": "Flowers",
+    "ai": 3
+  },
+  "moon-decor-and-flowers": {
+    "full": "Moon Decor & Flowers",
+    "primary": "Moon Decor",
+    "secondary": "& Flowers",
+    "ai": 2
+  },
+  "bloom-flowers": {
+    "full": "Bloom Flowers",
+    "primary": "Bloom",
+    "secondary": "Flowers",
+    "ai": 8
+  },
+  "roses-flowers": {
+    "full": "Roses flowers",
+    "primary": "Roses",
+    "secondary": "flowers",
+    "ai": 0
+  },
+  "daisy-flower": {
+    "full": "Daisy flower",
+    "primary": "Daisy",
+    "secondary": "flower",
+    "ai": 6
+  },
+  "flowers-and-fragrance": {
+    "full": "Flowers and Fragrance",
+    "primary": "Fragrance",
+    "secondary": "Flowers and",
+    "ai": 4
+  },
+  "sara-flowers-shop": {
+    "full": "Sara Flowers Shop",
+    "primary": "Sara",
+    "secondary": "Flowers Shop",
+    "ai": 3
+  },
+  "flawless-flower-shop": {
+    "full": "Flawless Flower Shop",
+    "primary": "Flawless",
+    "secondary": "Flower Shop",
+    "ai": 4
+  },
+  "flower-shop-and-gifts": {
+    "full": "Flower Shop & Gifts",
+    "primary": "Flower",
+    "secondary": "Shop & Gifts",
+    "ai": 4
+  },
+  "paper-flower-tirana": {
+    "full": "Paper Flower Tirana",
+    "primary": "Paper",
+    "secondary": "Flower Tirana",
+    "ai": 0
+  },
+  "daci-flower": {
+    "full": "Daçi Flower",
+    "primary": "Daçi",
+    "secondary": "Flower",
+    "ai": 1
+  },
+  "naco-flower": {
+    "full": "Naço flower",
+    "primary": "Naço",
+    "secondary": "flower",
+    "ai": 5
+  }
 };
+const PALETTES = [
+  {
+    "gold": "217 139 166",
+    "deep": "161 78 110",
+    "champ": "250 241 243",
+    "red": "178 58 106"
+  },
+  {
+    "gold": "230 150 110",
+    "deep": "168 92 54",
+    "champ": "251 243 236",
+    "red": "196 100 58"
+  },
+  {
+    "gold": "224 122 110",
+    "deep": "168 70 56",
+    "champ": "252 240 237",
+    "red": "194 78 60"
+  },
+  {
+    "gold": "206 168 92",
+    "deep": "150 112 44",
+    "champ": "250 245 233",
+    "red": "178 132 50"
+  },
+  {
+    "gold": "173 150 206",
+    "deep": "102 76 146",
+    "champ": "244 240 250",
+    "red": "130 92 174"
+  },
+  {
+    "gold": "197 140 192",
+    "deep": "130 74 124",
+    "champ": "249 240 247",
+    "red": "162 88 152"
+  },
+  {
+    "gold": "192 104 124",
+    "deep": "128 44 66",
+    "champ": "250 238 241",
+    "red": "158 54 80"
+  },
+  {
+    "gold": "206 134 104",
+    "deep": "146 76 50",
+    "champ": "250 241 235",
+    "red": "176 88 58"
+  },
+  {
+    "gold": "233 162 182",
+    "deep": "178 88 112",
+    "champ": "253 241 244",
+    "red": "206 92 122"
+  },
+  {
+    "gold": "140 166 196",
+    "deep": "70 102 138",
+    "champ": "238 243 248",
+    "red": "92 124 162"
+  },
+  {
+    "gold": "150 176 132",
+    "deep": "86 112 66",
+    "champ": "240 245 234",
+    "red": "110 138 80"
+  },
+  {
+    "gold": "192 144 158",
+    "deep": "130 82 96",
+    "champ": "249 242 244",
+    "red": "162 96 112"
+  }
+];
 const __params = (typeof window !== "undefined") ? new URLSearchParams(window.location.search) : new URLSearchParams();
 const __slug = __params.get("shop");
-const SHOP_NAME = (__slug && SHOPS[__slug]) || RAW_BRAND.wordmark;
+const __entry = (__slug && SHOPS[__slug]) || { full: RAW_BRAND.wordmark, primary: RAW_BRAND.name, secondary: "", ai: 0 };
+const FULL = __entry.full, PRIMARY = __entry.primary, SECONDARY = __entry.secondary;
+const PAL = PALETTES[__entry.ai % PALETTES.length];
 const __slugClean = (__slug || "bela").replace(/[^a-z0-9]+/gi, "");
+const __scaleRGB = (t, f) => t.split(" ").map((n) => Math.max(0, Math.min(255, Math.round(Number(n) * f)))).join(" ");
+if (typeof document !== "undefined") {
+  const rs = document.documentElement.style;
+  rs.setProperty("--c-gold", PAL.gold);
+  rs.setProperty("--c-deep", PAL.deep);
+  rs.setProperty("--c-champagne", PAL.champ);
+  rs.setProperty("--c-red", PAL.red);
+  // dark backgrounds (splash, hero overlays, footer) tinted toward the accent hue
+  rs.setProperty("--c-night", __scaleRGB(PAL.deep, 0.2));
+  rs.setProperty("--c-dark", __scaleRGB(PAL.deep, 0.4));
+}
+const __rgb = (t) => "rgb(" + t.split(" ").join(",") + ")";
 function __rebrand(obj) {
   let s = JSON.stringify(obj);
-  s = s.split("Bela Flower Shop").join(SHOP_NAME)
-       .split("BELA").join(SHOP_NAME)
-       .split("Bela").join(SHOP_NAME)
+  s = s.split("Bela Flower Shop").join(FULL)
+       .split("BELA").join(FULL)
+       .split("Bela").join(FULL)
        .split("belaflowers.al").join(__slugClean + ".al")
        .split("bela_flower_shopp").join(__slugClean);
   return JSON.parse(s);
 }
-const BRAND = { ...__rebrand(RAW_BRAND), name: SHOP_NAME, wordmark: SHOP_NAME };
+const BRAND = { ...__rebrand(RAW_BRAND), name: PRIMARY, wordmark: FULL, secondary: SECONDARY, accent: __rgb(PAL.gold), accentDeep: __rgb(PAL.deep) };
 const LANG = __rebrand(RAW_LANG);
 const PRODUCTS = __rebrand(RAW_PRODUCTS);
 
@@ -703,13 +1116,13 @@ export default function App() {
       start: "top -30",
       onEnter: () => {
         headerRef.current.classList.add("bg-white/95", "backdrop-blur-md", "shadow-sm", "border-b", "border-brand-champagne", "text-brand-dark", "py-3", "md:py-4");
-        headerRef.current.classList.remove("text-white", "bg-gradient-to-b", "from-black/60", "via-black/20", "to-transparent", "py-5", "md:py-6");
+        headerRef.current.classList.remove("text-white", "bg-gradient-to-b", "from-brand-night/70", "via-brand-night/30", "to-transparent", "py-5", "md:py-6");
         bookBtnRef.current?.classList.add("bg-brand-dark", "text-white");
         bookBtnRef.current?.classList.remove("bg-white", "text-brand-dark");
       },
       onLeaveBack: () => {
         headerRef.current.classList.remove("bg-white/95", "backdrop-blur-md", "shadow-sm", "border-b", "border-brand-champagne", "text-brand-dark", "py-3", "md:py-4");
-        headerRef.current.classList.add("text-white", "bg-gradient-to-b", "from-black/60", "via-black/20", "to-transparent", "py-5", "md:py-6");
+        headerRef.current.classList.add("text-white", "bg-gradient-to-b", "from-brand-night/70", "via-brand-night/30", "to-transparent", "py-5", "md:py-6");
         bookBtnRef.current?.classList.remove("bg-brand-dark", "text-white");
         bookBtnRef.current?.classList.add("bg-white", "text-brand-dark");
       }
@@ -904,7 +1317,7 @@ export default function App() {
         ref={loaderRef}
         className="fixed inset-0 z-[9999] bg-brand-night flex flex-col items-center justify-center pointer-events-auto overflow-hidden"
       >
-        <div className="absolute inset-0 pointer-events-none" style={{ background: 'radial-gradient(circle at 50% 42%, rgba(217,139,166,0.16), transparent 58%)' }} />
+        <div className="absolute inset-0 pointer-events-none" style={{ background: 'radial-gradient(circle at 50% 42%, rgb(var(--c-gold) / 0.16), transparent 58%)' }} />
         <div className="absolute inset-0 pointer-events-none" style={{ background: 'radial-gradient(circle at 50% 50%, transparent 50%, rgba(0,0,0,0.65))' }} />
 
         <div className="splash-inner relative text-center px-6">
@@ -934,7 +1347,7 @@ export default function App() {
       {/* NAVBAR */}
       <header
         ref={headerRef}
-        className="fixed top-0 left-0 w-full z-40 transition-all duration-500 py-4 sm:py-5 md:py-6 px-5 sm:px-6 md:px-12 text-white bg-gradient-to-b from-black/60 via-black/20 to-transparent"
+        className="fixed top-0 left-0 w-full z-40 transition-all duration-500 py-4 sm:py-5 md:py-6 px-5 sm:px-6 md:px-12 text-white bg-gradient-to-b from-brand-night/70 via-brand-night/30 to-transparent"
       >
         {/* MOBILE BAR — logo left, hamburger right */}
         <div className="lg:hidden flex items-center justify-between">
@@ -942,7 +1355,7 @@ export default function App() {
             <BrandMark className="w-12 h-12 shrink-0 text-brand-gold" />
             <span className="flex flex-col items-start">
               <span className="text-xl font-display font-semibold tracking-[0.26em] pl-[0.26em]">{BRAND.name}</span>
-              <span className="text-[6.5px] tracking-[0.36em] text-brand-gold uppercase mt-0.5 pl-[0.36em] font-semibold">{t.tagline}</span>
+              <span className="text-[6.5px] tracking-[0.36em] text-brand-gold uppercase mt-0.5 pl-[0.36em] font-semibold">{BRAND.secondary || t.tagline}</span>
             </span>
           </a>
           <button
@@ -989,7 +1402,7 @@ export default function App() {
                 {BRAND.name}
               </span>
               <span className="text-[7px] tracking-[0.4em] text-brand-gold uppercase block mt-1 pl-[0.4em] font-semibold">
-                {t.tagline}
+                {BRAND.secondary || t.tagline}
               </span>
             </span>
           </a>
