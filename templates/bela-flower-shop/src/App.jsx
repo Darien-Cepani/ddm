@@ -1320,9 +1320,9 @@ export default function App() {
         <div className="absolute inset-0 pointer-events-none" style={{ background: 'radial-gradient(circle at 50% 42%, rgb(var(--c-gold) / 0.16), transparent 58%)' }} />
         <div className="absolute inset-0 pointer-events-none" style={{ background: 'radial-gradient(circle at 50% 50%, transparent 50%, rgba(0,0,0,0.65))' }} />
 
-        <div className="splash-inner relative text-center px-6">
-          <BrandMark className="splash-mark w-24 h-24 sm:w-28 sm:h-28 mx-auto mb-7 sm:mb-9 text-brand-gold" />
-          <div className="loader-letter-group flex justify-center gap-1 sm:gap-3 md:gap-4 text-5xl sm:text-6xl md:text-7xl tracking-[0.18em] font-display font-semibold select-none">
+        <div className="splash-inner relative text-center px-5 sm:px-6 w-full max-w-[92vw] sm:max-w-2xl">
+          <BrandMark className="splash-mark w-20 h-20 sm:w-28 sm:h-28 mx-auto mb-6 sm:mb-9 text-brand-gold" />
+          <div className="loader-letter-group flex flex-wrap justify-center gap-x-0.5 gap-y-1 sm:gap-x-2 md:gap-x-3 text-[clamp(1.9rem,8.5vw,4.5rem)] tracking-[0.08em] sm:tracking-[0.18em] leading-[0.96] font-display font-semibold select-none">
             {BRAND.name.split("").map((letter, i) => (
               <span key={i} className="inline-block overflow-hidden pb-2 -mb-2">
                 <span className="loader-letter loader-shimmer inline-block">{letter}</span>
