@@ -10,13 +10,13 @@ export default function ShopNotFound() {
         style={{ background: "radial-gradient(closest-side, rgb(var(--accent) / 0.16), transparent)" }}
       />
       <div className="relative">
-        <Wordmark className="text-4xl" />
-        <h1 className="mt-10 font-display text-hero">Lost in space.</h1>
+        <Wordmark height={40} />
+        <h1 className="mt-10 font-display text-hero">Humbur në hapësirë.</h1>
         <p className="mx-auto mt-5 max-w-md font-sans text-lead text-muted">
-          This page hasn&apos;t landed yet. Let&apos;s get you back to solid ground.
+          Kjo faqe s&apos;ka zbritur ende. Të të kthejmë në tokë.
         </p>
         <Link href="/" className="btn-primary mt-9" data-cursor="hover">
-          Back to DDM
+          Kthehu te DDM
         </Link>
       </div>
     </main>

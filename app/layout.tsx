@@ -4,6 +4,7 @@ import "./globals.css";
 import { themeInitScript } from "@/lib/theme";
 import { SmoothScroll } from "@/components/fx/SmoothScroll";
 import { Cursor } from "@/components/fx/Cursor";
+import { LocaleProvider } from "@/components/i18n/LocaleProvider";
 
 const dmSans = DM_Sans({
   subsets: ["latin"],
@@ -40,13 +41,15 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" className={`${dmSans.variable} ${gelasio.variable}`} suppressHydrationWarning>
+    <html lang="sq" className={`${dmSans.variable} ${gelasio.variable}`} suppressHydrationWarning>
       <head>
         <script dangerouslySetInnerHTML={{ __html: themeInitScript }} />
       </head>
       <body>
-        <SmoothScroll>{children}</SmoothScroll>
-        <Cursor />
+        <LocaleProvider>
+          <SmoothScroll>{children}</SmoothScroll>
+          <Cursor />
+        </LocaleProvider>
       </body>
     </html>
   );

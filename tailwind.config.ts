@@ -5,7 +5,7 @@ const config: Config = {
   content: [
     "./app/**/*.{ts,tsx}",
     "./components/**/*.{ts,tsx}",
-    "./templates/**/*.{ts,tsx}",
+    "./templates/aurora/**/*.{ts,tsx}",
     "./lib/**/*.{ts,tsx}",
   ],
   theme: {
@@ -21,7 +21,9 @@ const config: Config = {
         surface: "rgb(var(--surface) / <alpha-value>)",
         ink: "rgb(var(--ink) / <alpha-value>)",
         muted: "rgb(var(--muted) / <alpha-value>)",
-        line: "rgb(var(--line) / <alpha-value>)",
+        // baked-in low alpha so borders/dividers are always subtle on both themes
+        line: "rgb(var(--line) / 0.12)",
+        "line-strong": "rgb(var(--line) / 0.22)",
         accent: "rgb(var(--accent) / <alpha-value>)",
       },
       fontFamily: {

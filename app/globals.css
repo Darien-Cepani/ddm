@@ -99,6 +99,17 @@
     @apply border-t border-line;
   }
 
+  /* DDM wordmark — extracted logo recolored to currentColor via mask */
+  .ddm-wordmark {
+    display: inline-block;
+    background-color: currentColor;
+    -webkit-mask: url("/brand/ddm-wordmark.png") no-repeat center / contain;
+    mask: url("/brand/ddm-wordmark.png") no-repeat center / contain;
+  }
+  .ddm-wordmark--accent {
+    background-color: rgb(var(--accent));
+  }
+
   /* Nav gains a frosted background once scrolled past the hero */
   .nav-solid {
     background-color: rgb(var(--bg) / 0.72);

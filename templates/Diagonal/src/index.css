@@ -1,0 +1,375 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --font-display: "Space Grotesk", sans-serif;
+  --font-sans: "Inter", system-ui, sans-serif;
+  --font-serif: "Playfair Display", serif;
+
+  /* Signature accent — used sparingly */
+  --color-brand-blue: #160aff;
+  --color-brand-accent: #2417ff;
+
+  /* Neutral architecture palette */
+  --color-brand-ink: #0a0c10;
+  --color-brand-dark: #0a0c10;
+  --color-brand-paper: #fbfbfa;
+  --color-brand-cream: #F7F6F3;
+  --color-brand-grey: #EFEDE8;
+  --color-brand-line: #e7e5e0;
+  --color-brand-muted: #8a8780;
+  --color-brand-bronze: #B89F7D;
+  --color-brand-light: #ffffff;
+}
+
+@layer base {
+  /* In-page navigation smoothness is handled in JS (App.animateScroll) so it
+     stays reliable across long jumps and the always-rendering footer canvas. */
+
+  /* Anchored sections clear the fixed 5rem navbar when scrolled to */
+  [id] {
+    scroll-margin-top: 6rem;
+  }
+
+  /* Scroll-reveal initial state (animated in by GSAP ScrollTrigger.batch) */
+  .reveal {
+    opacity: 0;
+    transform: translateY(28px);
+    will-change: opacity, transform;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .reveal {
+      opacity: 1;
+      transform: none;
+    }
+  }
+
+  body {
+    @apply antialiased text-brand-ink bg-brand-paper overflow-x-hidden selection:bg-brand-blue selection:text-white;
+    font-family: var(--font-sans);
+  }
+
+  ::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+  }
+  ::-webkit-scrollbar-track {
+    background: #f1efea;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: #cfccc4;
+    border-radius: 0;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: #160aff;
+  }
+}
+
+/* ============================================================
+   ARCHITECTURAL DESIGN SYSTEM
+   ============================================================ */
+
+/* Eyebrow / kicker label */
+.eyebrow {
+  font-family: var(--font-display);
+  font-size: 0.6875rem;
+  font-weight: 600;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--color-brand-blue);
+  display: inline-flex;
+  align-items: center;
+  gap: 0.625rem;
+}
+.eyebrow::before {
+  content: '';
+  width: 1.75rem;
+  height: 1px;
+  background: var(--color-brand-blue);
+  display: inline-block;
+}
+.eyebrow--center::before { display: none; }
+
+/* Mono technical label */
+.mono-label {
+  font-family: var(--font-sans);
+  font-feature-settings: "tnum";
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+}
+
+/* Unified refined card */
+.card-arch {
+  position: relative;
+  background: #ffffff;
+  border: 1px solid var(--color-brand-line);
+  transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1),
+              box-shadow 0.5s cubic-bezier(0.16, 1, 0.3, 1),
+              border-color 0.5s ease;
+}
+.card-arch:hover {
+  transform: translateY(-4px);
+  border-color: rgba(22, 10, 255, 0.35);
+  box-shadow: 0 24px 50px -24px rgba(10, 12, 16, 0.18);
+}
+
+/* Drafting corner ticks on cards */
+.corner-ticks::before,
+.corner-ticks::after {
+  content: '';
+  position: absolute;
+  width: 8px;
+  height: 8px;
+  border-color: rgba(22, 10, 255, 0.4);
+  border-style: solid;
+  opacity: 0;
+  transition: opacity 0.5s ease;
+}
+.corner-ticks::before {
+  top: 10px; left: 10px;
+  border-width: 1px 0 0 1px;
+}
+.corner-ticks::after {
+  bottom: 10px; right: 10px;
+  border-width: 0 1px 1px 0;
+}
+.card-arch:hover .corner-ticks::before,
+.card-arch:hover .corner-ticks::after { opacity: 1; }
+
+/* Spotlight follow (ReactBits Spotlight Card) */
+.spotlight {
+  position: relative;
+  overflow: hidden;
+}
+.spotlight::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.4s ease;
+  background: radial-gradient(
+    420px circle at var(--mx, 50%) var(--my, 50%),
+    rgba(22, 10, 255, 0.08),
+    transparent 60%
+  );
+}
+.spotlight:hover::after { opacity: 1; }
+
+/* Outlined display text (architectural blueprint feel) */
+.text-stroke {
+  -webkit-text-stroke: 1px rgba(10, 12, 16, 0.18);
+  color: transparent;
+}
+.text-stroke-blue {
+  -webkit-text-stroke: 1.2px rgba(22, 10, 255, 0.55);
+  color: transparent;
+}
+
+/* ShinyText (ReactBits) */
+.shiny-text {
+  background: linear-gradient(
+    110deg,
+    currentColor 35%,
+    rgba(255, 255, 255, 0.95) 50%,
+    currentColor 65%
+  );
+  background-size: 220% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  animation: shine 5s linear infinite;
+}
+@keyframes shine {
+  0% { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
+
+/* Glassmorphism navbar */
+.glassmorphism {
+  background: rgba(251, 251, 250, 0.82);
+  backdrop-filter: blur(20px) saturate(140%);
+  -webkit-backdrop-filter: blur(20px) saturate(140%);
+  border-bottom: 1px solid var(--color-brand-line);
+}
+
+/* Custom square cursor reticle */
+.custom-cursor {
+  width: 16px;
+  height: 16px;
+  border: 1px solid rgba(22, 10, 255, 0.7);
+  border-radius: 0;
+  position: fixed;
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+  z-index: 9999;
+  transition: width 0.3s cubic-bezier(0.16, 1, 0.3, 1), height 0.3s cubic-bezier(0.16, 1, 0.3, 1), background-color 0.3s, border-color 0.3s;
+  mix-blend-mode: difference;
+}
+
+/* Image zoom container */
+.zoom-container {
+  overflow: hidden;
+  position: relative;
+}
+.zoom-container img {
+  transition: transform 1.6s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.zoom-container:hover img {
+  transform: scale(1.06);
+}
+
+/* Architectural CAD grid overlay */
+.cad-grid-background {
+  background-size: 44px 44px;
+  background-image:
+    linear-gradient(to right, rgba(10, 12, 16, 0.03) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(10, 12, 16, 0.03) 1px, transparent 1px);
+}
+.cad-grid-blue {
+  background-size: 44px 44px;
+  background-image:
+    linear-gradient(to right, rgba(22, 10, 255, 0.06) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(22, 10, 255, 0.06) 1px, transparent 1px);
+}
+
+/* Diagonal hairline accent */
+.diagonal-line {
+  position: relative;
+}
+.diagonal-line::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 1px;
+  background: linear-gradient(90deg, var(--color-brand-blue) 0%, transparent 100%);
+}
+
+/* ============================================================
+   MOTION
+   ============================================================ */
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+@keyframes slideLeft {
+  from { transform: translateX(100%); }
+  to { transform: translateX(0); }
+}
+@keyframes scaleUp {
+  from { transform: scale(0.96); opacity: 0; }
+  to { transform: scale(1); opacity: 1; }
+}
+@keyframes floatY {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+}
+.animate-fade-in { animation: fadeIn 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
+.animate-slide-left { animation: slideLeft 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
+.animate-scale { animation: scaleUp 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
+.animate-float { animation: floatY 6s ease-in-out infinite; }
+
+/* 3D tilt card container */
+.tilt-card {
+  transform-style: preserve-3d;
+  perspective: 1000px;
+  transition: transform 0.15s ease, box-shadow 0.4s ease;
+}
+
+/* Aurora background (ReactBits) */
+@keyframes auroraShift {
+  0% { transform: translate3d(-10%, -6%, 0) rotate(-6deg) scale(1.1); }
+  50% { transform: translate3d(10%, 6%, 0) rotate(6deg) scale(1.25); }
+  100% { transform: translate3d(-10%, -6%, 0) rotate(-6deg) scale(1.1); }
+}
+.aurora-blob {
+  position: absolute;
+  border-radius: 9999px;
+  filter: blur(70px);
+  opacity: 0.5;
+  animation: auroraShift 18s ease-in-out infinite;
+}
+
+/* Vertical beam rays (ReactBits Beams) */
+@keyframes beamFloat {
+  0% { transform: translateY(-100%); opacity: 0; }
+  12% { opacity: 0.5; }
+  88% { opacity: 0.5; }
+  100% { transform: translateY(120%); opacity: 0; }
+}
+.beam-ray {
+  position: absolute;
+  width: 1px;
+  height: 38%;
+  background: linear-gradient(180deg, transparent, rgba(22, 10, 255, 0.5), transparent);
+  animation: beamFloat 13s linear infinite;
+  pointer-events: none;
+}
+
+/* Blueprint splash background — graph grid + diagonal hatch */
+.blueprint-grid {
+  background-image:
+    linear-gradient(rgba(255, 255, 255, 0.09) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.09) 1px, transparent 1px),
+    linear-gradient(rgba(255, 255, 255, 0.18) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.18) 1px, transparent 1px);
+  background-size: 26px 26px, 26px 26px, 130px 130px, 130px 130px;
+}
+.blueprint-hatch {
+  background-image: repeating-linear-gradient(
+    45deg,
+    rgba(255, 255, 255, 0.05) 0,
+    rgba(255, 255, 255, 0.05) 1px,
+    transparent 1px,
+    transparent 11px
+  );
+}
+
+/* Cinematic slow zoom for hero imagery */
+@keyframes kenBurns {
+  0% { transform: scale(1.05) translate3d(0, 0, 0); }
+  100% { transform: scale(1.2) translate3d(-1.5%, -2%, 0); }
+}
+.animate-kenburns {
+  animation: kenBurns 26s ease-in-out infinite alternate;
+}
+
+/* Map marker ping */
+@keyframes dgPing {
+  75%, 100% { transform: scale(2.4); opacity: 0; }
+}
+
+/* Marquee */
+@keyframes marquee {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+.animate-marquee {
+  animation: marquee 32s linear infinite;
+}
+
+/* Sliding border glow (ReactBits) */
+@keyframes borderGlow {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+.border-glow-wrapper {
+  position: relative;
+  background: #ffffff;
+  z-index: 10;
+}
+.border-glow-wrapper::before {
+  content: '';
+  position: absolute;
+  inset: -1px;
+  z-index: -1;
+  background: linear-gradient(90deg, #160aff, #5b7bff, #160aff);
+  background-size: 300% 300%;
+  animation: borderGlow 6s ease infinite;
+  opacity: 0;
+  transition: opacity 0.4s ease-in-out;
+}
+.border-glow-wrapper:hover::before { opacity: 1; }

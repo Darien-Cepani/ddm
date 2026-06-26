@@ -1,66 +1,55 @@
 "use client";
 
-import { useEffect, useRef } from "react";
-import { PROBLEMS } from "@/lib/content";
-import { gsap, ScrollTrigger, EASE, prefersReducedMotion } from "@/lib/motion";
+import {
+  RiTimerLine,
+  RiUserUnfollowLine,
+  RiMoneyEuroCircleLine,
+  RiEyeOffLine,
+  RiShoppingCartLine,
+  RiRepeatLine,
+} from "@remixicon/react";
+import { Reveal } from "@/components/fx/Reveal";
+import { useT } from "@/components/i18n/LocaleProvider";
 
+const ICONS = [RiTimerLine, RiUserUnfollowLine, RiMoneyEuroCircleLine, RiEyeOffLine, RiShoppingCartLine, RiRepeatLine];
+
+/**
+ * Glanceable pain grid — one icon, one tag, one short phrase per problem.
+ * Designed to be understood in a single scan (no paragraphs).
+ */
 export function Problems() {
-  const sectionRef = useRef<HTMLElement>(null);
-
-  useEffect(() => {
-    const section = sectionRef.current;
-    if (!section || prefersReducedMotion()) return;
-    const ctx = gsap.context(() => {
-      const cards = gsap.utils.toArray<HTMLElement>(".problem-card");
-      cards.forEach((card) => {
-        gsap.from(card, {
-          autoAlpha: 0,
-          y: 60,
-          duration: 0.9,
-          ease: EASE.out,
-          scrollTrigger: { trigger: card, start: "top 85%", once: true },
-        });
-      });
-    }, section);
-    return () => ctx.revert();
-  }, []);
+  const t = useT();
 
   return (
-    <section
-      id="problems"
-      ref={sectionRef}
-      className="relative scroll-mt-24 bg-surface py-24 sm:py-32"
-    >
-      <div className="shell grid gap-12 lg:grid-cols-[0.9fr_1.4fr] lg:gap-20">
-        {/* pinned left column */}
-        <div className="lg:sticky lg:top-28 lg:self-start">
-          <span className="eyebrow">(02) — Sound familiar?</span>
-          <h2 className="mt-6 font-display text-h2">
-            Running a business is full of <span className="text-accent">headaches</span>.
-          </h2>
-          <p className="mt-6 max-w-sm font-sans text-muted">
-            You didn&apos;t start your business to fight your website, chase leads in a spreadsheet, or
-            guess where your ad money went. These are the ones we hear every week.
-          </p>
-        </div>
+    <section id="problems" className="relative scroll-mt-24 bg-surface py-24 sm:py-32">
+      <div className="shell">
+        <span className="eyebrow">{t.problems.eyebrow}</span>
+        <h2 className="mt-6 max-w-3xl font-display text-h2">
+          {t.problems.titleA}
+          <span className="text-accent">{t.problems.accent}</span>
+          {t.problems.titleB}
+        </h2>
+        <p className="mt-4 font-sans text-muted">{t.problems.lead}</p>
 
-        {/* problem cards */}
-        <div className="flex flex-col gap-5">
-          {PROBLEMS.map((p, i) => (
-            <article
-              key={p.tag}
-              className="problem-card group rounded-2xl border border-line bg-bg/40 p-7 sm:p-9"
-            >
-              <div className="flex items-start justify-between gap-6">
-                <span className="font-sans text-sm tabular-nums text-muted">{String(i + 1).padStart(2, "0")}</span>
-                <span className="rounded-full border border-line px-3 py-1 font-sans text-[0.7rem] uppercase tracking-[0.16em] text-accent">
-                  {p.tag}
+        <Reveal stagger className="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+          {t.problems.items.map((p, i) => {
+            const Icon = ICONS[i];
+            return (
+              <article
+                key={p.tag}
+                className="group flex items-center gap-5 rounded-2xl border border-line bg-bg/50 p-6 transition-colors hover:border-accent"
+              >
+                <span className="grid h-12 w-12 shrink-0 place-items-center rounded-xl bg-accent/10 text-accent transition-colors group-hover:bg-accent group-hover:text-grass">
+                  <Icon size={24} />
                 </span>
-              </div>
-              <p className="mt-5 font-display text-h3 leading-snug">{p.title}</p>
-            </article>
-          ))}
-        </div>
+                <div>
+                  <span className="font-sans text-[0.7rem] uppercase tracking-[0.16em] text-muted">{p.tag}</span>
+                  <p className="font-display text-xl leading-tight">{p.t}</p>
+                </div>
+              </article>
+            );
+          })}
+        </Reveal>
       </div>
     </section>
   );

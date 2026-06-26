@@ -18,5 +18,11 @@
     }
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],
-  "exclude": ["node_modules"]
+  "exclude": [
+    "node_modules",
+    "templates/Diagonal",
+    "templates/Jardin Boutique Flowers & Perfumes",
+    "templates/anja-flowers",
+    "templates/bela-flower-shop"
+  ]
 }

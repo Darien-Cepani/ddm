@@ -4,9 +4,11 @@ import { useEffect, useRef } from "react";
 import { Starfield } from "@/components/fx/Starfield";
 import { SplitReveal } from "@/components/fx/SplitReveal";
 import { MagneticButton } from "@/components/fx/MagneticButton";
+import { useT } from "@/components/i18n/LocaleProvider";
 import { gsap, ScrollTrigger, EASE, prefersReducedMotion } from "@/lib/motion";
 
 export function Hero() {
+  const t = useT();
   const rootRef = useRef<HTMLElement>(null);
   const subRef = useRef<HTMLDivElement>(null);
 
@@ -60,27 +62,24 @@ export function Hero() {
       <div className="hero-content shell relative z-10 pt-24">
         <div className="flex items-center gap-3">
           <span className="h-2 w-2 rounded-full bg-accent" />
-          <span className="eyebrow">Do Digital Media</span>
+          <span className="eyebrow">{t.hero.eyebrow}</span>
         </div>
 
-        <SplitReveal as="h1" type="lines" trigger="load" delay={0.2} className="mt-6 max-w-5xl text-hero font-display">
-          We build brands that <span className="italic text-accent">dominate</span> the market.
+        <SplitReveal as="h1" type="words" trigger="load" delay={0.2} className="mt-6 max-w-5xl text-hero font-display">
+          {t.hero.headA}
+          <span className="italic text-accent">{t.hero.accent}</span>
+          {t.hero.headB}
         </SplitReveal>
 
         <div ref={subRef} className="mt-8 max-w-xl">
-          <p className="text-lead text-muted">
-            Premium websites, systems and campaigns — clean, fast, animated. We don&apos;t launch and
-            disappear. We stay, manage and optimise until the numbers speak for themselves.
-          </p>
-          <p className="mt-4 font-sans text-sm uppercase tracking-[0.18em] text-ink/70">
-            Stop planning &mdash; start doing.
-          </p>
+          <p className="text-lead text-muted">{t.hero.sub}</p>
+          <p className="mt-4 font-sans text-sm uppercase tracking-[0.18em] text-ink/70">{t.hero.tagline}</p>
           <div className="mt-9 flex flex-wrap items-center gap-4">
             <MagneticButton href="#problems" className="btn-primary">
-              See how we fix it
+              {t.hero.ctaPrimary}
             </MagneticButton>
             <a href="#services" className="btn-ghost" data-cursor="hover">
-              Our services
+              {t.hero.ctaSecondary}
             </a>
           </div>
         </div>
@@ -91,12 +90,12 @@ export function Hero() {
         <div className="shell flex items-end justify-between">
           <div className="flex items-center gap-3 text-muted">
             <span className="block h-8 w-px animate-scroll-cue bg-accent" />
-            <span className="font-sans text-xs uppercase tracking-[0.18em]">Scroll</span>
+            <span className="font-sans text-xs uppercase tracking-[0.18em]">{t.hero.scroll}</span>
           </div>
           <div className="hidden gap-8 font-sans text-xs text-muted sm:flex">
-            <span>120+ sites shipped</span>
-            <span>avg load &lt;1s</span>
-            <span>€0 hosting fees</span>
+            {t.hero.stats.map((s) => (
+              <span key={s}>{s}</span>
+            ))}
           </div>
         </div>
       </div>

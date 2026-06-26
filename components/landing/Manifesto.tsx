@@ -1,51 +1,37 @@
 "use client";
 
-import { useEffect, useRef } from "react";
-import { gsap, ScrollTrigger, prefersReducedMotion } from "@/lib/motion";
-import { SplitText } from "gsap/SplitText";
+import { Reveal } from "@/components/fx/Reveal";
+import { useT } from "@/components/i18n/LocaleProvider";
 
-if (typeof window !== "undefined") gsap.registerPlugin(SplitText);
-
+/**
+ * Glanceable identity: DDM = three pillars. No wall of text — the meaning lands
+ * in one scan. Each letter is oversized; its word + one-line role sits beside it.
+ */
 export function Manifesto() {
-  const ref = useRef<HTMLParagraphElement>(null);
-
-  useEffect(() => {
-    const el = ref.current;
-    if (!el || prefersReducedMotion()) return;
-    let split: SplitText | null = null;
-    const ctx = gsap.context(() => {
-      split = new SplitText(el, { type: "words" });
-      gsap.set(split.words, { opacity: 0.18 });
-      gsap.to(split.words, {
-        opacity: 1,
-        ease: "none",
-        stagger: 0.4,
-        scrollTrigger: {
-          trigger: el,
-          start: "top 78%",
-          end: "bottom 55%",
-          scrub: true,
-        },
-      });
-    }, el);
-    return () => {
-      split?.revert();
-      ctx.revert();
-    };
-  }, []);
+  const t = useT();
+  const letters = ["D", "D", "M"];
 
   return (
-    <section className="relative py-28 sm:py-40">
+    <section className="relative py-24 sm:py-32">
       <div className="shell">
-        <span className="eyebrow">(01) — What we are</span>
-        <p
-          ref={ref}
-          className="mt-8 max-w-5xl font-display text-h2 leading-[1.1]"
-        >
-          DDM is <span className="text-accent">digital</span>, <span className="text-accent">development</span> and{" "}
-          <span className="text-accent">management</span>. We don&apos;t just make things look good — we build the
-          systems behind them and stay to run them, until your numbers speak for themselves.
-        </p>
+        <div className="flex items-baseline gap-3">
+          <span className="eyebrow">{t.manifesto.eyebrow}</span>
+          <span className="font-sans text-sm text-muted">— {t.manifesto.lead}</span>
+        </div>
+
+        <Reveal stagger className="mt-12 grid gap-px overflow-hidden rounded-3xl border border-line bg-line sm:grid-cols-3">
+          {t.manifesto.pillars.map((p, i) => (
+            <div key={p.k} className="group relative flex flex-col justify-between gap-10 bg-bg p-8 sm:p-10">
+              <span className="font-display text-[clamp(4rem,9vw,7rem)] leading-none text-accent transition-transform duration-500 group-hover:-translate-y-1">
+                {letters[i]}
+              </span>
+              <div>
+                <h3 className="font-display text-h3">{p.k}</h3>
+                <p className="mt-2 font-sans text-muted">{p.d}</p>
+              </div>
+            </div>
+          ))}
+        </Reveal>
       </div>
     </section>
   );

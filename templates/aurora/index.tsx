@@ -1,5 +1,4 @@
 import type { ClientData } from "@/lib/clients";
-import { Wordmark } from "@/components/shell/Wordmark";
 
 /**
  * "Aurora" — starter client template.
@@ -93,13 +92,10 @@ export function AuroraTemplate({ data }: { data: ClientData }) {
 
       {/* footer with tasteful DDM credit */}
       <footer className="border-t border-milk/10 py-10">
-        <div className="mx-auto flex max-w-shell flex-col items-center justify-between gap-4 px-6 sm:flex-row">
+        <div className="mx-auto flex max-w-shell items-center justify-center px-6">
           <span className="font-sans text-sm text-milk/50">
             © {new Date().getFullYear()} {data.name}
           </span>
-          <a href="https://ddm.al" className="flex items-center gap-2 font-sans text-xs text-milk/50 hover:text-milk">
-            Built by <Wordmark className="text-sm" href="" />
-          </a>
         </div>
       </footer>
     </div>

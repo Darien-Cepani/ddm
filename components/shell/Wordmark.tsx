@@ -1,21 +1,32 @@
 import Link from "next/link";
 
 /**
- * DDM wordmark. Rendered as styled text for now; isolated here so an SVG asset
- * can drop in later without touching consumers.
+ * DDM wordmark — the real logo extracted from the brand guidelines, rendered as
+ * a CSS mask so it adopts the current text color (works on light + dark themes).
+ * Size is controlled by `height` (px); width follows the logo's aspect ratio.
  */
-export function Wordmark({ className = "", href = "/" }: { className?: string; href?: string }) {
+const ASPECT = 1548 / 430; // official logo dimensions
+
+export function Wordmark({
+  className = "",
+  href = "/",
+  height = 26,
+}: {
+  className?: string;
+  href?: string;
+  height?: number;
+}) {
   const mark = (
     <span
-      className={`font-sans font-black tracking-[-0.06em] leading-none select-none ${className}`}
+      role="img"
       aria-label="DDM — Do Digital Media"
-    >
-      DD<span className="text-accent">M</span>
-    </span>
+      className={`ddm-wordmark ${className}`}
+      style={{ height, width: height * ASPECT }}
+    />
   );
   if (href) {
     return (
-      <Link href={href} data-cursor="hover" className="inline-block">
+      <Link href={href} data-cursor="hover" className="inline-flex items-center" aria-label="DDM home">
         {mark}
       </Link>
     );

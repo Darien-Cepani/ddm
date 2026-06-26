@@ -7,7 +7,7 @@ import { Solutions } from "@/components/landing/Solutions";
 import { Services } from "@/components/landing/Services";
 import { Trust } from "@/components/landing/Trust";
 import { Process } from "@/components/landing/Process";
-import { Showcase } from "@/components/landing/Showcase";
+import { TemplatesShowcase } from "@/components/landing/TemplatesShowcase";
 import { CTA } from "@/components/landing/CTA";
 
 const orgJsonLd = {
@@ -38,7 +38,7 @@ export default function Home() {
         <Services />
         <Trust />
         <Process />
-        <Showcase />
+        <TemplatesShowcase />
         <CTA />
       </main>
       <Footer />
