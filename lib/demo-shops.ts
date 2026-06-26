@@ -12,7 +12,7 @@ export const DEMO_SHOPS: DemoShop[] = [
   { slug: "flower-boutique", name: "Flower boutique", primary: "Flower", secondary: "boutique" },
   { slug: "tirana-flowers", name: "Tirana Flowers", primary: "Tirana", secondary: "Flowers" },
   { slug: "bloom-flower-exclusive", name: "Bloom Flower Exclusive", primary: "Bloom Flower Exclusive", secondary: "" },
-  { slug: "hanaflower-al", name: "hanaflower.al", primary: "hanaflower.al", secondary: "" },
+  { slug: "hanaflower-al", name: "Hana Flower", primary: "Hana", secondary: "Flower" },
   { slug: "speaking-roses-albania", name: "Speaking Roses Albania", primary: "Speaking Roses", secondary: "Albania" },
   { slug: "joal-flowers", name: "JOAL Flowers", primary: "JOAL", secondary: "Flowers" },
   { slug: "wow-flowers", name: "WoW Flowers", primary: "WoW", secondary: "Flowers" },
