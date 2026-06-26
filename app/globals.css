@@ -15,6 +15,7 @@
     --line: 26 34 9; /* army; used with low alpha */
     --accent: 192 245 61; /* lime #C0F53D — fills, glows, decorative */
     --accent-ink: 88 120 20; /* darker readable green for accent TEXT on light */
+    --danger: 201 52 44; /* readable red for "bad" items on light */
     --line-alpha: 0.14;
     color-scheme: light;
   }
@@ -27,6 +28,7 @@
     --line: 250 255 243; /* milk; low alpha */
     --accent: 192 245 61; /* lime */
     --accent-ink: 192 245 61; /* on dark, accent text can stay lime */
+    --danger: 255 107 107; /* lighter red for dark backgrounds */
     --line-alpha: 0.12;
     color-scheme: dark;
   }
@@ -117,6 +119,14 @@
 
   .hairline {
     @apply border-t border-line;
+  }
+
+  /* Client demo iframe takes the whole viewport; suppress the DDM shell over it */
+  body:has(.demo-frame) {
+    overflow: hidden;
+  }
+  body:has(.demo-frame) .ddm-cursor {
+    display: none;
   }
 
   /* Custom cursor — full lime in dark, negative (inverts what's beneath) in light */

@@ -26,7 +26,7 @@ export function Problems() {
         <span className="eyebrow">{t.problems.eyebrow}</span>
         <h2 className="mt-6 max-w-3xl font-display text-h2">
           {t.problems.titleA}
-          <span className="text-accent-ink">{t.problems.accent}</span>
+          <span className="text-danger">{t.problems.accent}</span>
           {t.problems.titleB}
         </h2>
         <p className="mt-4 font-sans text-muted">{t.problems.lead}</p>
@@ -37,13 +37,13 @@ export function Problems() {
             return (
               <article
                 key={p.tag}
-                className="group flex items-center gap-5 rounded-2xl border border-line bg-bg/50 p-6 transition-colors hover:border-accent"
+                className="group flex items-center gap-5 rounded-2xl border border-line bg-bg/50 p-6 transition-colors hover:border-danger"
               >
-                <span className="grid h-12 w-12 shrink-0 place-items-center rounded-xl bg-accent/10 text-accent-ink transition-colors group-hover:bg-accent group-hover:text-grass">
+                <span className="grid h-12 w-12 shrink-0 place-items-center rounded-xl bg-danger/10 text-danger transition-colors group-hover:bg-danger group-hover:text-milk">
                   <Icon size={24} />
                 </span>
                 <div>
-                  <span className="font-sans text-[0.7rem] uppercase tracking-[0.16em] text-muted">{p.tag}</span>
+                  <span className="font-sans text-[0.7rem] uppercase tracking-[0.16em] text-danger">{p.tag}</span>
                   <p className="font-display text-xl leading-tight">{p.t}</p>
                 </div>
               </article>

@@ -27,7 +27,7 @@ gsap.registerPlugin(ScrollTrigger);
 // --- BRAND CONSTANTS --------------------------------------------------------
 // Single source of truth for identity + the few colours referenced from JS
 // (custom cursor, Leaflet marker). All other colour comes from Tailwind tokens.
-const BRAND = {
+const RAW_BRAND = {
   name: "BELA",
   wordmark: "Bela Flower Shop",
   handle: "bela_flower_shopp",
@@ -54,7 +54,7 @@ const handleImageError = (e) => {
 // --- BILINGUAL DICTIONARY (English / Albanian) -----------------------------
 // Every visible UI string lives here keyed by language so the whole site can be
 // toggled between English ("en") and Albanian ("sq") at runtime.
-const LANG = {
+const RAW_LANG = {
   en: {
     tagline: "FLOWER SHOP",
     categories: { all: "All", bouquets: "Bouquets", roses: "Roses", arrangements: "Arrangements", weddings: "Weddings" },
@@ -267,7 +267,7 @@ const LANG = {
 
 // Curated flower catalogue. Names are kept identical across languages;
 // descriptions and detail bullets are bilingual.
-const PRODUCTS = [
+const RAW_PRODUCTS = [
   {
     id: 1,
     name: { en: "Blush Bloom Basket", sq: "Shportë me Lule Rozë" },
@@ -385,6 +385,94 @@ const PRODUCTS = [
 // Brand mark — Bela's five-petal rose bloom (matches Brand/logo.svg). Uses
 // currentColor so it adapts to whatever text colour wraps it, and carries the
 // `splash-mark` / `brand-petal` hooks the preloader animates.
+
+// --- DDM demo parameterisation ------------------------------------------------
+// One build serves every client: ?shop=<slug> picks the business name and the
+// template is rebranded from "Bela" to that name at runtime.
+const SHOPS = {
+  "lulebore-flowers": "Luleborë Flowers",
+  "dyqan-lulesh-sara-flowers-and-gifts-shop": "Dyqan lulesh Sara Flowers & Gifts Shop",
+  "don-paulo-flowers": "Don Paulo Flowers",
+  "bota-e-luleve": "BOTA E LULEVE",
+  "dyqan-lulesh-shytis-flower": "Dyqan Lulesh Shyti's Flower",
+  "golden-flowers": "Golden Flowers",
+  "handmade-ola": "Handmade Ola",
+  "house-of-flowers-lori": "House of Flowers Lori",
+  "flower-boutique": "Flower boutique",
+  "tirana-flowers": "Tirana Flowers",
+  "bloom-flower-exclusive": "Bloom Flower Exclusive",
+  "hanaflower-al": "hanaflower.al",
+  "speaking-roses-albania": "Speaking Roses Albania",
+  "joal-flowers": "JOAL Flowers",
+  "wow-flowers": "WoW Flowers",
+  "floramour": "Floramour",
+  "blumenhaus-flower-shop": "Blumenhaus Flower Shop",
+  "friends-of-flowers": "FRIENDS OF FLOWERS",
+  "flowers-shop-angel": "Flowers shop Angel",
+  "belfiore": "Belfiore",
+  "fiore-tirana": "Fiore Tirana",
+  "castle-of-flower": "Castle Of Flower",
+  "anabela-flowers": "Anabela Flowers",
+  "igiflower": "IgiFlower",
+  "new-tirana-flowers": "New Tirana Flowers",
+  "eart-flowers-and-gifts": "Eart Flowers & Gifts",
+  "flowers-elixir-store": "Flowers Elixir Store",
+  "lujon-flowers": "Lujon Flowers",
+  "dive-flowers-and-events": "D’IVE FLOWERS & EVENTS",
+  "smell-time-myslym-shyri": "Smell Time Myslym Shyri",
+  "artflower": "Artflower",
+  "flowers-and-plants-ds": "Flowers and Plants DS",
+  "le-rose-flowers-shop": "Le Rose flowers shop",
+  "fleur-de-mel": "Fleur de Mel",
+  "lotus-flowers-tirane": "Lotus Flowers Tiranë",
+  "silvi-flowers-tirane": "Silvi Flowers Tirane",
+  "family-flowers": "Family Flowers",
+  "florum": "FLORUM",
+  "mado-flowers-tirane": "Mado Flowers Tirane",
+  "bloem-flower-boutique-tirana": "Bloem Flower Boutique Tirana",
+  "flowers-by-des": "Flowers by Des",
+  "charm-flowers-shop": "CHARM FLOWERS SHOP",
+  "lunariaa-eu-flower-cafe": "Lunariaa.eu Flower Café",
+  "oazi-festiv": "Oazi Festiv",
+  "tulip-touch-flower-shop-in-tirana": "Tulip Touch Flower Shop in Tirana",
+  "tirana-colour-wine": "Tirana Colour Wine",
+  "floral-fantasy": "Floral Fantasy",
+  "dandelion-flower-tirana": "Dandelion Flower Tirana",
+  "frida-xhoi-and-xhei": "Frida Xhoi & Xhei",
+  "artifiko-gift-shop": "Artifiko Gift Shop",
+  "the-tea-room": "The Tea Room",
+  "geraldina-sposa": "Geraldina Sposa",
+  "dhurata-com": "Dhurata.com",
+  "maison-damour-flowers": "Maison D'amour Flowers",
+  "moon-decor-and-flowers": "Moon Decor & Flowers",
+  "bloom-flowers": "Bloom Flowers",
+  "roses-flowers": "Roses flowers",
+  "daisy-flower": "Daisy flower",
+  "flowers-and-fragrance": "Flowers and Fragrance",
+  "sara-flowers-shop": "Sara Flowers Shop",
+  "flawless-flower-shop": "Flawless Flower Shop",
+  "flower-shop-and-gifts": "Flower Shop & Gifts",
+  "paper-flower-tirana": "Paper Flower Tirana",
+  "daci-flower": "Daçi Flower",
+  "naco-flower": "Naço flower"
+};
+const __params = (typeof window !== "undefined") ? new URLSearchParams(window.location.search) : new URLSearchParams();
+const __slug = __params.get("shop");
+const SHOP_NAME = (__slug && SHOPS[__slug]) || RAW_BRAND.wordmark;
+const __slugClean = (__slug || "bela").replace(/[^a-z0-9]+/gi, "");
+function __rebrand(obj) {
+  let s = JSON.stringify(obj);
+  s = s.split("Bela Flower Shop").join(SHOP_NAME)
+       .split("BELA").join(SHOP_NAME)
+       .split("Bela").join(SHOP_NAME)
+       .split("belaflowers.al").join(__slugClean + ".al")
+       .split("bela_flower_shopp").join(__slugClean);
+  return JSON.parse(s);
+}
+const BRAND = { ...__rebrand(RAW_BRAND), name: SHOP_NAME, wordmark: SHOP_NAME };
+const LANG = __rebrand(RAW_LANG);
+const PRODUCTS = __rebrand(RAW_PRODUCTS);
+
 function BrandMark({ className = "" }) {
   return (
     <svg viewBox="0 0 64 64" className={className} fill="none" aria-hidden="true">
