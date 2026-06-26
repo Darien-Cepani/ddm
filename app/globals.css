@@ -1,0 +1,150 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ------------------------------------------------------------------ */
+/*  DDM theme tokens — light is default, .dark overrides              */
+/*  Values are space-separated RGB so Tailwind alpha (/<value>) works */
+/* ------------------------------------------------------------------ */
+@layer base {
+  :root {
+    --bg: 250 255 243; /* milk #FAFFF3 */
+    --surface: 242 247 233; /* milk shaded */
+    --ink: 10 13 4; /* grass #0A0D04 */
+    --muted: 70 80 55; /* army-ish, softer ink */
+    --line: 26 34 9; /* army; used with low alpha */
+    --accent: 192 245 61; /* lime #C0F53D */
+    --line-alpha: 0.14;
+    color-scheme: light;
+  }
+
+  .dark {
+    --bg: 10 13 4; /* grass #0A0D04 */
+    --surface: 16 20 10; /* grass lifted */
+    --ink: 250 255 243; /* milk */
+    --muted: 173 184 150; /* milk muted */
+    --line: 250 255 243; /* milk; low alpha */
+    --accent: 192 245 61; /* lime */
+    --line-alpha: 0.12;
+    color-scheme: dark;
+  }
+
+  * {
+    border-color: rgb(var(--line) / var(--line-alpha));
+  }
+
+  html {
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+
+  body {
+    background-color: rgb(var(--bg));
+    color: rgb(var(--ink));
+    font-family: var(--font-dm-sans), system-ui, sans-serif;
+    overflow-x: hidden;
+    transition: background-color 0.6s cubic-bezier(0.16, 1, 0.3, 1),
+      color 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  /* Hide native cursor only when our custom cursor is active (pointer devices) */
+  @media (hover: hover) and (pointer: fine) {
+    body.has-cursor * {
+      cursor: none !important;
+    }
+  }
+
+  ::selection {
+    background: rgb(var(--accent));
+    color: #0a0d04;
+  }
+
+  :focus-visible {
+    outline: 2px solid rgb(var(--accent));
+    outline-offset: 3px;
+    border-radius: 2px;
+  }
+}
+
+@layer components {
+  .shell {
+    @apply mx-auto w-full max-w-shell px-6 sm:px-8 lg:px-12;
+  }
+
+  .eyebrow {
+    @apply font-sans text-eyebrow uppercase text-muted;
+  }
+
+  .display {
+    @apply font-display;
+  }
+
+  /* line mask used by SplitText reveals */
+  .line-mask {
+    overflow: hidden;
+    display: block;
+  }
+
+  .btn-primary {
+    @apply relative inline-flex items-center justify-center gap-2 rounded-full bg-accent px-7 py-3.5
+      font-sans text-sm font-medium text-grass transition-transform;
+  }
+
+  .btn-ghost {
+    @apply relative inline-flex items-center justify-center gap-2 rounded-full border px-7 py-3.5
+      font-sans text-sm font-medium text-ink transition-colors hover:border-accent;
+  }
+
+  .hairline {
+    @apply border-t border-line;
+  }
+
+  /* Nav gains a frosted background once scrolled past the hero */
+  .nav-solid {
+    background-color: rgb(var(--bg) / 0.72);
+    backdrop-filter: saturate(140%) blur(14px);
+    border-bottom: 1px solid rgb(var(--line) / var(--line-alpha));
+  }
+
+  /* Static fallback for the hero starfield (reduced-motion / low-power) */
+  .starfield-fallback {
+    background:
+      radial-gradient(1px 1px at 20% 30%, rgb(var(--ink) / 0.25), transparent),
+      radial-gradient(1px 1px at 70% 60%, rgb(var(--ink) / 0.2), transparent),
+      radial-gradient(1.5px 1.5px at 40% 80%, rgb(var(--accent) / 0.5), transparent),
+      radial-gradient(1px 1px at 85% 20%, rgb(var(--ink) / 0.2), transparent),
+      radial-gradient(1px 1px at 55% 45%, rgb(var(--ink) / 0.18), transparent);
+  }
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+  .grain {
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Respect reduced motion globally as a safety net */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+}
