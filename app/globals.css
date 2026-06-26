@@ -13,7 +13,8 @@
     --ink: 10 13 4; /* grass #0A0D04 */
     --muted: 70 80 55; /* army-ish, softer ink */
     --line: 26 34 9; /* army; used with low alpha */
-    --accent: 192 245 61; /* lime #C0F53D */
+    --accent: 192 245 61; /* lime #C0F53D — fills, glows, decorative */
+    --accent-ink: 88 120 20; /* darker readable green for accent TEXT on light */
     --line-alpha: 0.14;
     color-scheme: light;
   }
@@ -25,6 +26,7 @@
     --muted: 173 184 150; /* milk muted */
     --line: 250 255 243; /* milk; low alpha */
     --accent: 192 245 61; /* lime */
+    --accent-ink: 192 245 61; /* on dark, accent text can stay lime */
     --line-alpha: 0.12;
     color-scheme: dark;
   }

@@ -87,7 +87,7 @@ export function TemplatePreview({ slug }: { slug: string }) {
               </div>
               <div className="flex items-center justify-between p-4">
                 <span className="font-display text-lg">{o.name}</span>
-                <RiArrowRightUpLine size={18} className="text-muted transition-colors group-hover:text-accent" />
+                <RiArrowRightUpLine size={18} className="text-muted transition-colors group-hover:text-accent-ink" />
               </div>
             </Link>
           ))}

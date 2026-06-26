@@ -11,12 +11,13 @@ import {
   RiArrowRightUpLine,
 } from "@remixicon/react";
 import { SplitReveal } from "@/components/fx/SplitReveal";
-import { useT } from "@/components/i18n/LocaleProvider";
+import { useT, useLocale } from "@/components/i18n/LocaleProvider";
 
 const ICONS = [RiGlobalLine, RiContactsLine, RiMegaphoneLine, RiPaletteLine, RiShoppingBagLine, RiCloudLine];
 
 export function Solutions() {
   const t = useT();
+  const { locale } = useLocale();
   const [active, setActive] = useState(0);
   const items = t.solutions.items;
   const current = items[active];
@@ -35,7 +36,7 @@ export function Solutions() {
         {/* sticky detail panel */}
         <div className="lg:sticky lg:top-28 lg:self-start">
           <span className="eyebrow">{t.solutions.eyebrow}</span>
-          <SplitReveal as="h2" type="lines" className="mt-6 font-display text-h2">
+          <SplitReveal key={locale} as="h2" type="lines" className="mt-6 font-display text-h2">
             {t.solutions.title}
           </SplitReveal>
 
@@ -44,7 +45,7 @@ export function Solutions() {
               <span className="grid h-14 w-14 place-items-center rounded-2xl bg-accent text-grass">
                 <ActiveIcon size={26} />
               </span>
-              <span className="mt-6 block font-sans text-sm uppercase tracking-[0.16em] text-accent">{current.tag}</span>
+              <span className="mt-6 block font-sans text-sm uppercase tracking-[0.16em] text-accent-ink">{current.tag}</span>
               <h3 className="mt-2 font-display text-h3">{current.title}</h3>
               <p className="mt-4 font-sans text-lead text-muted">{current.line}</p>
             </div>
@@ -76,13 +77,13 @@ export function Solutions() {
                   }`}
                 >
                   <span className="flex items-center gap-5">
-                    <Icon size={22} className={i === active ? "text-accent" : "text-muted"} />
+                    <Icon size={22} className={i === active ? "text-accent-ink" : "text-muted"} />
                     <span className="font-display text-h3">{s.title}</span>
                   </span>
                   <RiArrowRightUpLine
                     size={22}
                     className={`shrink-0 transition-all duration-300 ${
-                      i === active ? "translate-x-0 text-accent opacity-100" : "-translate-x-2 opacity-0"
+                      i === active ? "translate-x-0 text-accent-ink opacity-100" : "-translate-x-2 opacity-0"
                     }`}
                   />
                 </button>

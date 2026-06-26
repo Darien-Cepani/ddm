@@ -6,11 +6,12 @@ import { Starfield } from "@/components/fx/Starfield";
 import { SplitReveal } from "@/components/fx/SplitReveal";
 import { MagneticButton } from "@/components/fx/MagneticButton";
 import { Marquee } from "@/components/fx/Marquee";
-import { useT } from "@/components/i18n/LocaleProvider";
+import { useT, useLocale } from "@/components/i18n/LocaleProvider";
 import { gsap, ScrollTrigger, EASE, prefersReducedMotion } from "@/lib/motion";
 
 export function Hero() {
   const t = useT();
+  const { locale } = useLocale();
   const rootRef = useRef<HTMLElement>(null);
   const subRef = useRef<HTMLDivElement>(null);
 
@@ -60,9 +61,9 @@ export function Hero() {
           <span className="eyebrow">{t.hero.eyebrow}</span>
         </div>
 
-        <SplitReveal as="h1" type="words" trigger="load" delay={0.2} className="mt-7 max-w-[16ch] text-hero font-display">
+        <SplitReveal key={locale} as="h1" type="words" trigger="load" delay={0.2} className="mt-7 max-w-[16ch] text-hero font-display">
           {t.hero.headA}
-          <span className="italic text-accent">{t.hero.accent}</span>
+          <span className="italic text-accent-ink">{t.hero.accent}</span>
           {t.hero.headB}
         </SplitReveal>
 

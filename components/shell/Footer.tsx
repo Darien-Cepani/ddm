@@ -6,11 +6,11 @@ import { ThemeToggle } from "./ThemeToggle";
 import { LocaleToggle } from "@/components/i18n/LocaleToggle";
 import { useT } from "@/components/i18n/LocaleProvider";
 
-const SOCIALS = [
-  { label: "Instagram", icon: RiInstagramLine, href: "#" },
-  { label: "LinkedIn", icon: RiLinkedinBoxLine, href: "#" },
-  { label: "WhatsApp", icon: RiWhatsappLine, href: "#" },
-];
+// const SOCIALS = [
+//   { label: "Instagram", icon: RiInstagramLine, href: "#" },
+//   { label: "LinkedIn", icon: RiLinkedinBoxLine, href: "#" },
+//   { label: "WhatsApp", icon: RiWhatsappLine, href: "#" },
+// ];
 
 export function Footer() {
   const t = useT();
@@ -48,7 +48,7 @@ export function Footer() {
             <p className="mt-4 max-w-xs font-sans text-sm text-milk/60">{t.footer.blurb}</p>
           </div>
 
-          <div className="flex flex-col gap-3">
+          {/* <div className="flex flex-col gap-3">
             <span className="font-sans text-eyebrow uppercase tracking-[0.18em] text-milk/40">{t.footer.social}</span>
             {SOCIALS.map((s) => (
               <a
@@ -61,7 +61,7 @@ export function Footer() {
                 {s.label}
               </a>
             ))}
-          </div>
+          </div> */}
 
           <div className="flex flex-col gap-4">
             <span className="font-sans text-eyebrow uppercase tracking-[0.18em] text-milk/40">{t.footer.contact}</span>

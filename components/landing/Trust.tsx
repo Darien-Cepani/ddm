@@ -20,7 +20,7 @@ export function Trust() {
 
           <div className="mt-10 rounded-3xl border border-accent bg-accent/10 p-7">
             <div className="flex items-center gap-3">
-              <RiShieldCheckLine size={22} className="text-accent" />
+              <RiShieldCheckLine size={22} className="text-accent-ink" />
               <span className="font-sans text-eyebrow uppercase tracking-[0.16em] text-muted">{t.trust.promiseLabel}</span>
             </div>
             <p className="mt-4 font-display text-h3 leading-snug">{t.trust.guarantee}</p>
@@ -37,12 +37,12 @@ export function Trust() {
                 key={p.title}
                 className="group flex items-start gap-6 rounded-3xl border border-line bg-surface p-7 transition-colors hover:border-accent sm:p-8"
               >
-                <span className="grid h-14 w-14 shrink-0 place-items-center rounded-2xl bg-accent/10 text-accent transition-colors group-hover:bg-accent group-hover:text-grass">
+                <span className="grid h-14 w-14 shrink-0 place-items-center rounded-2xl bg-accent/10 text-accent-ink transition-colors group-hover:bg-accent group-hover:text-grass">
                   <Icon size={26} />
                 </span>
                 <div>
                   <div className="flex items-baseline gap-3">
-                    <span className="font-sans text-sm tabular-nums text-accent">0{i + 1}</span>
+                    <span className="font-sans text-sm tabular-nums text-accent-ink">0{i + 1}</span>
                     <h3 className="font-display text-h3">{p.title}</h3>
                   </div>
                   <p className="mt-2 font-sans text-muted">{p.line}</p>

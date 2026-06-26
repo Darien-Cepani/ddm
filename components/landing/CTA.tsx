@@ -5,7 +5,7 @@ import { RiMailLine, RiWhatsappLine, RiCheckLine } from "@remixicon/react";
 import { SplitReveal } from "@/components/fx/SplitReveal";
 import { Reveal } from "@/components/fx/Reveal";
 import { MagneticButton } from "@/components/fx/MagneticButton";
-import { useT } from "@/components/i18n/LocaleProvider";
+import { useT, useLocale } from "@/components/i18n/LocaleProvider";
 
 // Placeholders — replace with the real channels.
 const DDM_EMAIL = "contact@ddm.al";
@@ -15,6 +15,7 @@ type Channel = "email" | "whatsapp";
 
 export function CTA() {
   const t = useT();
+  const { locale } = useLocale();
   const [form, setForm] = useState({ name: "", business: "", email: "", phone: "", message: "" });
   const [channel, setChannel] = useState<Channel>("whatsapp");
   const [error, setError] = useState(false);
@@ -61,9 +62,9 @@ export function CTA() {
 
       <div className="shell relative">
         <span className="eyebrow">{t.offer.eyebrow}</span>
-        <SplitReveal as="h2" type="words" className="mt-6 max-w-4xl font-display text-hero">
+        <SplitReveal key={locale} as="h2" type="words" className="mt-6 max-w-4xl font-display text-hero">
           {t.offer.titleA}
-          <span className="text-accent">{t.offer.accent}</span>
+          <span className="text-accent-ink">{t.offer.accent}</span>
           {t.offer.titleB}
         </SplitReveal>
         <p className="mt-6 max-w-xl font-sans text-lead text-muted">{t.offer.lead}</p>
@@ -92,7 +93,7 @@ export function CTA() {
                 <ul className="mt-5 flex flex-col gap-2.5 font-sans text-sm">
                   {tier.points.map((pt) => (
                     <li key={pt} className="flex items-start gap-3">
-                      <RiCheckLine size={18} className="mt-0.5 shrink-0 text-accent" />
+                      <RiCheckLine size={18} className="mt-0.5 shrink-0 text-accent-ink" />
                       {pt}
                     </li>
                   ))}
@@ -108,7 +109,7 @@ export function CTA() {
 
             {sent ? (
               <div className="mt-8 flex items-center gap-3 rounded-2xl border border-accent bg-accent/10 p-6">
-                <RiCheckLine className="text-accent" />
+                <RiCheckLine className="text-accent-ink" />
                 <span className="font-sans text-sm">{t.offer.form.privacy}</span>
               </div>
             ) : (
@@ -167,9 +168,9 @@ export function CTA() {
 
         {/* closing line */}
         <div className="mt-28 text-center">
-          <SplitReveal as="p" type="words" className="font-display text-hero">
+          <SplitReveal key={locale} as="p" type="words" className="font-display text-hero">
             {t.offer.closingA}
-            <span className="text-accent">{t.offer.closingAccent}</span>
+            <span className="text-accent-ink">{t.offer.closingAccent}</span>
           </SplitReveal>
           <div className="mt-10 flex justify-center">
             <MagneticButton href="#contact" className="btn-primary text-base" strength={0.5}>

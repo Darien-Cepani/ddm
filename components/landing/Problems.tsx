@@ -26,7 +26,7 @@ export function Problems() {
         <span className="eyebrow">{t.problems.eyebrow}</span>
         <h2 className="mt-6 max-w-3xl font-display text-h2">
           {t.problems.titleA}
-          <span className="text-accent">{t.problems.accent}</span>
+          <span className="text-accent-ink">{t.problems.accent}</span>
           {t.problems.titleB}
         </h2>
         <p className="mt-4 font-sans text-muted">{t.problems.lead}</p>
@@ -39,7 +39,7 @@ export function Problems() {
                 key={p.tag}
                 className="group flex items-center gap-5 rounded-2xl border border-line bg-bg/50 p-6 transition-colors hover:border-accent"
               >
-                <span className="grid h-12 w-12 shrink-0 place-items-center rounded-xl bg-accent/10 text-accent transition-colors group-hover:bg-accent group-hover:text-grass">
+                <span className="grid h-12 w-12 shrink-0 place-items-center rounded-xl bg-accent/10 text-accent-ink transition-colors group-hover:bg-accent group-hover:text-grass">
                   <Icon size={24} />
                 </span>
                 <div>

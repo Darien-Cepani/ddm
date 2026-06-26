@@ -25,6 +25,7 @@ const config: Config = {
         line: "rgb(var(--line) / 0.12)",
         "line-strong": "rgb(var(--line) / 0.22)",
         accent: "rgb(var(--accent) / <alpha-value>)",
+        "accent-ink": "rgb(var(--accent-ink) / <alpha-value>)",
       },
       fontFamily: {
         display: ["var(--font-gelasio)", "Georgia", "serif"],
