@@ -103,6 +103,6 @@ export const PROCESS = [
 
 export const PILLARS = [
   { title: "Fixed timelines", line: "You know exactly when you go live. No drift, no excuses." },
-  { title: "Transparent pricing", line: "€200 once. Optional €100/yr for your own domain. That's it." },
+  { title: "Transparent pricing", line: "€200 once. Optional €100/yr for your own custom domain and hosting. That's it." },
   { title: "One point of contact", line: "No account-manager maze. One team that owns the result." },
 ] as const;

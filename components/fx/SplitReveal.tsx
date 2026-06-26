@@ -51,12 +51,18 @@ export function SplitReveal({ children, className, type = "lines", trigger = "sc
         stagger: 0.08,
         delay,
         ...(trigger === "scroll"
-          ? { scrollTrigger: { trigger: el, start: "top 85%", once: true } }
+          ? { scrollTrigger: { trigger: el, start: "top 88%", once: true } }
           : {}),
       });
     }, el);
 
+    // failsafe — if the trigger never fires, force the text visible
+    const fail = window.setTimeout(() => {
+      if (split) gsap.set(type === "lines" ? split.lines : split.words, { yPercent: 0 });
+    }, 2800);
+
     return () => {
+      window.clearTimeout(fail);
       split?.revert();
       ctx.revert();
     };

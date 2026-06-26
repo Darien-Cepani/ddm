@@ -29,19 +29,21 @@ export function TemplatesGallery() {
         {TEMPLATES_CATALOG.map((tpl) => (
           <Reveal key={tpl.slug}>
             <article id={tpl.slug} className="group scroll-mt-28 overflow-hidden rounded-3xl border border-line">
-              <div className="relative aspect-[16/10] overflow-hidden">
-                <Image
-                  src={tpl.thumb}
-                  alt={tpl.name}
-                  fill
-                  sizes="(max-width: 640px) 100vw, 50vw"
-                  className="object-cover object-top transition-transform duration-700 group-hover:scale-[1.04]"
-                />
-                <span
-                  className="pointer-events-none absolute inset-0 opacity-0 transition-opacity duration-500 group-hover:opacity-100"
-                  style={{ background: `radial-gradient(60% 60% at 50% 0%, ${tpl.accent}22, transparent)` }}
-                />
-              </div>
+              <Link href={`/templates/${tpl.slug}`} data-cursor="hover" className="block">
+                <div className="relative aspect-[16/10] overflow-hidden">
+                  <Image
+                    src={tpl.thumb}
+                    alt={tpl.name}
+                    fill
+                    sizes="(max-width: 640px) 100vw, 50vw"
+                    className="object-cover object-top transition-transform duration-700 group-hover:scale-[1.04]"
+                  />
+                  <span
+                    className="pointer-events-none absolute inset-0 opacity-0 transition-opacity duration-500 group-hover:opacity-100"
+                    style={{ background: `radial-gradient(60% 60% at 50% 0%, ${tpl.accent}22, transparent)` }}
+                  />
+                </div>
+              </Link>
               <div className="flex flex-col gap-4 p-7">
                 <div>
                   <span className="font-sans text-xs uppercase tracking-[0.16em] text-muted">{tpl.category[locale]}</span>
@@ -50,11 +52,11 @@ export function TemplatesGallery() {
                 </div>
                 <div className="flex flex-wrap items-center gap-3">
                   <Link
-                    href={tpl.href}
+                    href={`/templates/${tpl.slug}`}
                     data-cursor="hover"
                     className="inline-flex items-center gap-2 rounded-full bg-accent px-5 py-2.5 font-sans text-sm font-medium text-grass"
                   >
-                    {t.templatesPage.view} <RiArrowRightUpLine size={16} />
+                    {t.templates.view} <RiArrowRightUpLine size={16} />
                   </Link>
                   <Link href="/#contact" data-cursor="hover" className="btn-ghost px-5 py-2.5 text-sm">
                     {t.templatesPage.use}

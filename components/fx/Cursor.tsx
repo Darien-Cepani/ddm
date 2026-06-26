@@ -52,18 +52,10 @@ export function Cursor() {
   }, []);
 
   return (
-    <div aria-hidden className="pointer-events-none fixed inset-0 z-[100] hidden md:block">
-      {/* ring uses theme ink so it's visible on both light and dark; dot stays lime */}
-      <div
-        ref={ringRef}
-        className="absolute -left-4 -top-4 h-8 w-8 rounded-full border-2 border-ink/70"
-        style={{ willChange: "transform" }}
-      />
-      <div
-        ref={dotRef}
-        className="absolute -left-[3px] -top-[3px] h-1.5 w-1.5 rounded-full bg-accent shadow-[0_0_8px_rgb(var(--accent))]"
-        style={{ willChange: "transform" }}
-      />
+    <div aria-hidden className="ddm-cursor pointer-events-none fixed inset-0 z-[100] hidden md:block">
+      {/* dark: solid lime · light: negative (mix-blend difference) — see globals.css */}
+      <div ref={ringRef} className="ddm-cursor-ring absolute -left-4 -top-4 h-8 w-8 rounded-full" style={{ willChange: "transform" }} />
+      <div ref={dotRef} className="ddm-cursor-dot absolute -left-[3px] -top-[3px] h-1.5 w-1.5 rounded-full" style={{ willChange: "transform" }} />
     </div>
   );
 }

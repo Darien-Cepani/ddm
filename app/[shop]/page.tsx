@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
-import { getClient, allClientSlugs } from "@/lib/clients";
+import { getClient, allClientSlugs, pickLocale } from "@/lib/clients";
+import { DEFAULT_LOCALE } from "@/lib/i18n";
 import { TEMPLATES } from "@/templates";
 
 type Params = { shop: string };
@@ -14,10 +15,12 @@ export function generateStaticParams(): Params[] {
 export async function generateMetadata({ params }: { params: Params }): Promise<Metadata> {
   const client = getClient(params.shop);
   if (!client) return { title: "Not found" };
+  const tagline = pickLocale(client.tagline, DEFAULT_LOCALE);
+  const description = pickLocale(client.description, DEFAULT_LOCALE);
   return {
-    title: `${client.name} — ${client.tagline}`,
-    description: client.description,
-    openGraph: { title: client.name, description: client.description, type: "website" },
+    title: `${client.name} — ${tagline}`,
+    description,
+    openGraph: { title: client.name, description, type: "website" },
   };
 }
 

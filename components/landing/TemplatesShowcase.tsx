@@ -29,7 +29,7 @@ export function TemplatesShowcase() {
           {featured.map((tpl) => (
             <Link
               key={tpl.slug}
-              href={`/templates#${tpl.slug}`}
+              href={`/templates/${tpl.slug}`}
               data-cursor="hover"
               className="group relative overflow-hidden rounded-3xl border border-line"
             >

@@ -1,11 +1,12 @@
 "use client";
 
+import { RiArrowRightUpLine } from "@remixicon/react";
 import { useT } from "@/components/i18n/LocaleProvider";
 
 /**
- * Capability index — services LISTED, not advertised. The grid stays clean;
- * on hover each service reveals a tooltip explaining what it does FOR the
- * business. (The old marquee was removed as redundant.)
+ * Capability index — services LISTED, not advertised. Each cell shows the
+ * service name plus a short line on what it does for the business (always
+ * visible, so nothing is obstructed and it works on touch). Hover fills lime.
  */
 export function Services() {
   const t = useT();
@@ -15,29 +16,28 @@ export function Services() {
       <div className="shell">
         <span className="eyebrow">{t.services.eyebrow}</span>
         <h2 className="mt-6 max-w-3xl font-display text-h2">{t.services.title}</h2>
-        <p className="mt-4 font-sans text-sm text-muted">{t.services.hint}</p>
       </div>
 
-      <div className="mt-12 grid grid-cols-2 gap-px border-y border-line bg-line sm:grid-cols-3 lg:grid-cols-4">
+      <div className="mt-12 grid grid-cols-1 gap-px border-y border-line bg-line sm:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4">
         {t.services.items.map((s) => (
           <div
             key={s.name}
             data-cursor="hover"
-            className="group relative flex items-center justify-between gap-3 overflow-hidden bg-bg px-6 py-7"
+            className="group relative flex min-h-[148px] flex-col justify-between gap-6 overflow-hidden bg-bg p-7"
           >
             {/* lime sweep on hover */}
             <span className="absolute inset-0 -translate-y-full bg-accent transition-transform duration-300 ease-expo group-hover:translate-y-0" />
 
-            <span className="relative z-10 font-display text-h3 transition-colors group-hover:text-grass">{s.name}</span>
-            <span className="relative z-10 font-sans text-xs text-muted transition-colors group-hover:text-grass">↗</span>
-
-            {/* tooltip */}
-            <span
-              role="tooltip"
-              className="pointer-events-none absolute inset-x-3 bottom-3 z-20 translate-y-2 rounded-xl border border-grass/15 bg-grass px-4 py-3 font-sans text-xs leading-snug text-milk opacity-0 shadow-lg transition-all duration-300 group-hover:translate-y-0 group-hover:opacity-100"
-            >
+            <div className="relative z-10 flex items-start justify-between gap-3">
+              <h3 className="font-display text-h3 transition-colors group-hover:text-grass">{s.name}</h3>
+              <RiArrowRightUpLine
+                size={20}
+                className="mt-1 shrink-0 text-muted transition-colors group-hover:text-grass"
+              />
+            </div>
+            <p className="relative z-10 max-w-[34ch] font-sans text-sm leading-snug text-muted transition-colors group-hover:text-grass/90">
               {s.tip}
-            </span>
+            </p>
           </div>
         ))}
       </div>

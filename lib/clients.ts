@@ -2,41 +2,56 @@
  * Client registry — maps a slug (ddm.al/<slug>) to the template that renders it
  * plus that client's content. Adding a client = one entry here.
  *
- * NOTE: visitors never see how this works; it is purely the internal wiring
- * that powers the multi-tenant paths.
+ * Text fields are `Localized`: a plain string (single-language, like a real
+ * client's own site) OR an { sq, en } object (used by the bilingual demo).
  */
+import { DEFAULT_LOCALE, type Locale } from "./i18n";
 
 export type TemplateName = "aurora";
+
+export type Localized = string | Partial<Record<Locale, string>>;
+
+/** Resolve a Localized value for a locale (falls back to default, then any). */
+export function pickLocale(value: Localized | undefined, locale: Locale): string {
+  if (value == null) return "";
+  if (typeof value === "string") return value;
+  return value[locale] ?? value[DEFAULT_LOCALE] ?? Object.values(value)[0] ?? "";
+}
 
 export interface ClientData {
   slug: string;
   name: string;
   template: TemplateName;
-  tagline: string;
-  description: string;
-  /** Optional per-client accent override (hex). Falls back to DDM lime. */
+  tagline: Localized;
+  description: Localized;
   accent?: string;
-  sector?: string;
-  contact?: { phone?: string; email?: string; address?: string };
-  services?: string[];
+  sector?: Localized;
+  contact?: { phone?: string; email?: string; address?: Localized };
+  services?: Localized[];
 }
 
-/**
- * Demo entries so the /[shop] route renders something real.
- * Replace / extend with real clients over time.
- */
 export const CLIENTS: Record<string, ClientData> = {
   "aurora-coffee": {
     slug: "aurora-coffee",
     name: "Aurora Coffee",
     template: "aurora",
-    tagline: "Roasted under the northern sky.",
-    description:
-      "A specialty roastery serving small-batch coffee with a quiet, cosmic soul. Order online, find us in store, taste the difference.",
-    sector: "Hospitality",
+    tagline: {
+      en: "Roasted under the northern sky.",
+      sq: "Pjekur nën qiellin verior.",
+    },
+    description: {
+      en: "A specialty roastery serving small-batch coffee with a quiet, cosmic soul. Order online, find us in store, taste the difference.",
+      sq: "Një torrefaksion specialiteti me kafe në sasi të vogla dhe një shpirt të qetë, kozmik. Porosit online, na gjej në dyqan, shijo ndryshimin.",
+    },
+    sector: { en: "Hospitality", sq: "Mikpritje" },
     accent: "#C0F53D",
-    contact: { phone: "+355 69 000 0000", email: "hello@auroracoffee.al", address: "Tirana, Albania" },
-    services: ["Order online", "Subscriptions", "Wholesale", "Find a store"],
+    contact: { phone: "+355 69 000 0000", email: "hello@auroracoffee.al", address: { en: "Tirana, Albania", sq: "Tiranë, Shqipëri" } },
+    services: [
+      { en: "Order online", sq: "Porosit online" },
+      { en: "Subscriptions", sq: "Abonime" },
+      { en: "Wholesale", sq: "Shumicë" },
+      { en: "Find a store", sq: "Gjej dyqanin" },
+    ],
   },
 };
 

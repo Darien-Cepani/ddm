@@ -39,7 +39,7 @@ const config: Config = {
         eyebrow: ["clamp(0.72rem, 0.9vw, 0.8125rem)", { lineHeight: "1", letterSpacing: "0.18em" }],
       },
       maxWidth: {
-        shell: "84rem",
+        shell: "92rem",
       },
       transitionTimingFunction: {
         expo: "cubic-bezier(0.16, 1, 0.3, 1)",
