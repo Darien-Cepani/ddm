@@ -36,7 +36,7 @@ export default function ShopPage({ params }: { params: Params }) {
   // Demo flower-shop sites (Bela template, one parameterised build).
   if (DEMO_SLUGS.has(params.shop)) {
     const demo = DEMO_SHOPS.find((s) => s.slug === params.shop)!;
-    return <DemoFrame slug={demo.slug} name={demo.name} />;
+    return <DemoFrame shop={demo} />;
   }
 
   // Registered native-template clients.

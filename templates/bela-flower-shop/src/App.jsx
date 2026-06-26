@@ -857,9 +857,15 @@ const PALETTES = [
 ];
 const __params = (typeof window !== "undefined") ? new URLSearchParams(window.location.search) : new URLSearchParams();
 const __slug = __params.get("shop");
+// The name + accent are passed as URL params by the DDM page (single source of
+// truth = lib/demo-shops.ts), falling back to the baked SHOPS map for direct access.
 const __entry = (__slug && SHOPS[__slug]) || { full: RAW_BRAND.wordmark, primary: RAW_BRAND.name, secondary: "", ai: 0 };
-const FULL = __entry.full, PRIMARY = __entry.primary, SECONDARY = __entry.secondary;
-const PAL = PALETTES[__entry.ai % PALETTES.length];
+const FULL = __params.get("n") || __entry.full;
+const PRIMARY = __params.get("p") || __entry.primary;
+const SECONDARY = __params.get("s") ?? __entry.secondary;
+const __aiParam = __params.get("a");
+const __ai = __aiParam != null && __aiParam !== "" ? Number(__aiParam) : __entry.ai;
+const PAL = PALETTES[((__ai % PALETTES.length) + PALETTES.length) % PALETTES.length];
 const __slugClean = (__slug || "bela").replace(/[^a-z0-9]+/gi, "");
 const __scaleRGB = (t, f) => t.split(" ").map((n) => Math.max(0, Math.min(255, Math.round(Number(n) * f)))).join(" ");
 if (typeof document !== "undefined") {
@@ -1322,10 +1328,14 @@ export default function App() {
 
         <div className="splash-inner relative text-center px-5 sm:px-6 w-full max-w-[92vw] sm:max-w-2xl">
           <BrandMark className="splash-mark w-20 h-20 sm:w-28 sm:h-28 mx-auto mb-6 sm:mb-9 text-brand-gold" />
-          <div className="loader-letter-group flex flex-wrap justify-center gap-x-0.5 gap-y-1 sm:gap-x-2 md:gap-x-3 text-[clamp(1.9rem,8.5vw,4.5rem)] tracking-[0.08em] sm:tracking-[0.18em] leading-[0.96] font-display font-semibold select-none">
-            {BRAND.name.split("").map((letter, i) => (
-              <span key={i} className="inline-block overflow-hidden pb-2 -mb-2">
-                <span className="loader-letter loader-shimmer inline-block">{letter}</span>
+          <div className="loader-letter-group flex flex-wrap items-end justify-center gap-x-[0.34em] gap-y-2 text-[clamp(1.9rem,8.5vw,4.5rem)] tracking-[0.08em] sm:tracking-[0.18em] leading-[0.96] font-display font-semibold select-none">
+            {BRAND.name.split(" ").filter(Boolean).map((word, wi) => (
+              <span key={wi} className="inline-flex gap-x-[0.06em] whitespace-nowrap">
+                {word.split("").map((letter, li) => (
+                  <span key={li} className="inline-block overflow-hidden pb-2 -mb-2">
+                    <span className="loader-letter loader-shimmer inline-block">{letter}</span>
+                  </span>
+                ))}
               </span>
             ))}
           </div>
