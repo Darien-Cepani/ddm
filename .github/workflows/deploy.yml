@@ -26,9 +26,9 @@ jobs:
       - run: npm ci
       - name: Build static site
         run: npm run build
-        env:
-          # GitHub Pages project site is served under /<repo>
-          NEXT_PUBLIC_BASE_PATH: /ddm
+        # Custom domain ddm.al serves from the root, so no basePath.
+        # (If you ever revert to darien-cepani.github.io/ddm, restore
+        #  env.NEXT_PUBLIC_BASE_PATH: /ddm here.)
       - uses: actions/configure-pages@v5
       - uses: actions/upload-pages-artifact@v3
         with:
